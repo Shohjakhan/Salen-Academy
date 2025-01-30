@@ -9,7 +9,7 @@ final sl = GetIt.instance;
 Future<void> getItInit() async {
   final ApiClient baseClient = ApiClient(
     apiService: HttpService(),
-    //TODO: ENV file
+    //TODO: ENV file create
     baseUrl: "https://salenacademy.com/api",
   );
   sl.registerLazySingleton(() => baseClient);
