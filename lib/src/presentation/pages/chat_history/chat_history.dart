@@ -42,14 +42,14 @@ class _HistoryPageState extends State<HistoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Watch History",
-          style: TextStyle(color: Colors.black),
+          "Tutorial History",
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: const Color(0xFFffa130),
+        iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete, color: Colors.black),
+            icon: const Icon(Icons.delete, color: Colors.white),
             onPressed: () {
               _clearHistory();
             },
@@ -69,7 +69,7 @@ class _HistoryPageState extends State<HistoryPage> {
               itemCount: videoHistory.length,
               itemBuilder: (context, index) {
                 return Card(
-                  color: Colors.white,
+                  color: const Color(0xFFffa130),
                   margin:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   elevation: 2,
@@ -92,15 +92,15 @@ class _HistoryPageState extends State<HistoryPage> {
                     title: Text(
                       videoHistory[index]["title"]!,
                       style: const TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     subtitle: Text(
                       "Watched on ${videoHistory[index]["date"]}",
-                      style: TextStyle(color: Colors.grey[600]),
+                      style: TextStyle(color: Colors.grey[100]),
                     ),
-                    trailing: const Icon(Icons.more_vert, color: Colors.black),
+                    trailing: const Icon(Icons.more_vert, color: Colors.white),
                     onTap: () {
                       // Navigate to video page
                     },
