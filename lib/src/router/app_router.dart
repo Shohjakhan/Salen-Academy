@@ -55,7 +55,7 @@ abstract class AppRouter {
       GoRoute(
         name: VideoPage.routeName,
         path: '/video',
-        builder: (context, state) => const VideoPage(),
+        builder: (context, state) => VideoPage(),
       ),
       GoRoute(
         name: HistoryPage.routeName,
