@@ -10,6 +10,7 @@ abstract class GenerateVideoRepository {
   static Future<dynamic> getVideo({
     required String topic,
     required String quality,
+    required String langCode,
   }) async {
     try {
       final data = await sl<ApiClient>().request(
@@ -18,6 +19,7 @@ abstract class GenerateVideoRepository {
         body: {
           'prompt': topic,
           'quality': quality,
+          'language': langCode,
         },
       );
 

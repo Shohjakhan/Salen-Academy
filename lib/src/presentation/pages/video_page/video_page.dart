@@ -19,7 +19,7 @@ class _VideoPageState extends State<VideoPage> {
   final TextEditingController _searchController = TextEditingController();
 
   // For the user’s chosen preferences
-  String _selectedLanguage = 'ru'; // 'uz', 'ru', 'en'
+  String _selectedLanguage = 'en'; // 'uz', 'ru', 'en'
   String _selectedQuality = '3'; // '1', '2', '3'
 
   @override
