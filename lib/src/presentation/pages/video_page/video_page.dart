@@ -19,12 +19,13 @@ class _VideoPageState extends State<VideoPage> {
   final TextEditingController _searchController = TextEditingController();
 
   // For the user’s chosen preferences
-  String _selectedLanguage = 'en'; // 'uz', 'ru', 'en'
-  String _selectedQuality = '3'; // '1', '2', '3'
+  late String _selectedLanguage; // 'uz', 'ru', 'en'
+  late String _selectedQuality; // '1', '2', '3'
 
   @override
   void initState() {
     super.initState();
+    _selectedLanguage = S.current.language;
     // Initialize with some default video
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(
@@ -36,7 +37,7 @@ class _VideoPageState extends State<VideoPage> {
 
   // Show a dialog in the middle of the screen for choosing language and quality
   Future<void> _showPreferencesDialog() async {
-    return showDialog<void>(
+    return await showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         // We’ll use AlertDialog so it appears in the center
@@ -138,9 +139,9 @@ class _VideoPageState extends State<VideoPage> {
               ),
               child: Text('OK'),
               onPressed: () {
-                Navigator.of(context).pop();
                 // After preferences chosen, proceed to send request
                 _sendRequest();
+                Navigator.of(context).pop();
               },
             ),
           ],

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:salen_academy/src/domain/sing_in_cubit/sign_in_cubit.dart';
+import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
 
 class SignInPage extends StatefulWidget {
   static const String routeName = 'signin';
@@ -20,19 +24,10 @@ class _SignInPageState extends State<SignInPage> {
       String email = emailController.text;
       String password = passwordController.text;
 
-      if (email == 'example@domain.com' && password == 'password123') {
-        setState(() {
-          errorMessage = null;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login successful!')),
-        );
-        // Navigate to another page if login is successful
-      } else {
-        setState(() {
-          errorMessage = 'Invalid email or password!';
-        });
-      }
+      BlocProvider.of<SignInCubit>(context).onSignIn(
+        userName: email,
+        password: password,
+      );
     }
   }
 
@@ -117,10 +112,10 @@ class _SignInPageState extends State<SignInPage> {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter your email';
                                   }
-                                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-                                      .hasMatch(value)) {
-                                    return 'Please enter a valid email';
-                                  }
+                                  // if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                  //     .hasMatch(value)) {
+                                  //   return 'Please enter a valid email';
+                                  // }
                                   return null;
                                 },
                               ),
@@ -147,38 +142,65 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                               const SizedBox(height: 10),
                               // Error Message
-                              if (errorMessage != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 20.0),
-                                  child: Text(
-                                    errorMessage!,
-                                    style: const TextStyle(
-                                        color: Colors.red, fontSize: 14.0),
-                                  ),
-                                ),
+                              BlocBuilder<SignInCubit, SignInState>(
+                                builder: (context, state) {
+                                  if (state.isError) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 20.0,
+                                      ),
+                                      child: Text(
+                                        state.error!.message,
+                                        style: const TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 14.0,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return SizedBox.shrink();
+                                  }
+                                },
+                              ),
                               const SizedBox(height: 20),
                               // Log In Button
-                              ElevatedButton(
-                                onPressed: validateAndLogin,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFffa130),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 100,
-                                    vertical: 16,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  shadowColor: Colors.grey.withOpacity(0.3),
-                                  elevation: 10,
-                                ),
-                                child: const Text(
-                                  'Log In',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                              BlocBuilder<SignInCubit, SignInState>(
+                                buildWhen: (previous, current) {
+                                  if (current.signInModel != null) {
+                                    context.goNamed(HomePage.routeName);
+                                  }
+
+                                  return true;
+                                },
+                                builder: (context, state) {
+                                  print(state.isLoading);
+                                  return ElevatedButton(
+                                    onPressed: state.isLoading
+                                        ? null
+                                        : validateAndLogin,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(0xFFffa130),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 100,
+                                        vertical: 16,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      shadowColor: Colors.grey.withOpacity(0.3),
+                                      elevation: 10,
+                                    ),
+                                    child: state.isLoading
+                                        ? CircularProgressIndicator.adaptive()
+                                        : const Text(
+                                            'Log In',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                  );
+                                },
                               ),
                             ],
                           ),
