@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salen_academy/src/data/models/sign_in_model.dart';
+import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
 import 'package:salen_academy/src/data/repositories/sign_in_repository.dart';
 
 import '../../data/models/error_model.dart';
@@ -21,6 +22,7 @@ class SignInCubit extends Cubit<SignInState> {
         password: password,
       );
       if (data is SignInModel) {
+        await LocalDataRepository.setAccessToken(data.token);
         emit(state.copyWith(isLoading: false, signInModel: data));
       }
     } on ErrorModel catch (e) {

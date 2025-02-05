@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:isar/isar.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
+import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
 import 'package:salen_academy/src/presentation/pages/welcome_page/welcome_page.dart';
 
 import '../../../../injector_container.dart';
@@ -20,9 +21,15 @@ class _SplashPageState extends State<SplashPage> {
     await Isar.initializeIsarCore();
     await getItInit();
     String langCode = await LocalDataRepository.getLanguageCode();
+    String accessToken = await LocalDataRepository.getAccessToken();
     await S.load(Locale(langCode));
-    // ignore: use_build_context_synchronously
-    context.goNamed(WelcomePage.routeName);
+    if (accessToken.isEmpty) {
+      // ignore: use_build_context_synchronously
+      context.goNamed(WelcomePage.routeName);
+    } else {
+      // ignore: use_build_context_synchronously
+      context.goNamed(HomePage.routeName);
+    }
   }
 
   @override
