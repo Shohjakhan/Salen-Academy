@@ -107,10 +107,10 @@ class _SignInPageState extends State<SignInPage> {
                               // Email Field
                               _buildTextField(
                                 controller: emailController,
-                                labelText: 'Email',
+                                labelText: 'Username',
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your email';
+                                    return 'Please enter your Username';
                                   }
                                   // if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
                                   //     .hasMatch(value)) {

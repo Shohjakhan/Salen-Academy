@@ -38,5 +38,7 @@ abstract class LocalDataRepository {
     sl<LocalStorage>().setSync(_kAccessToken, value);
   }
 
-  static Future<void> logout() async {}
+  static Future<void> logout() async {
+    await setAccessToken('');
+  }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
+import 'package:salen_academy/src/presentation/pages/welcome_page/welcome_page.dart';
 
 class ProfilePage extends StatefulWidget {
   static const String routeName = 'profile';
@@ -83,6 +86,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 foregroundColor: Colors.orange,
               ),
               child: Text('Change Profile Picture'),
+            ),
+            Spacer(),
+            ElevatedButton(
+              onPressed: () async {
+                await LocalDataRepository.logout();
+                // ignore: use_build_context_synchronously
+                context.goNamed(WelcomePage.routeName);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.orange,
+              ),
+              child: Text('Log out'),
             ),
           ],
         ),
