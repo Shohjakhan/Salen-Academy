@@ -10,6 +10,8 @@ part 'sign_up_state.dart';
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpState.init());
 
+  get value => null;
+
   Future<void> onSignUp({
     required String userName,
     required String email,
@@ -23,7 +25,10 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: password,
       );
 
-      if (data is UserModel) {
+      if (data is UserSignInModel) {
+        // ignore: non_constant_identifier_names
+        var LocalDataRepository;
+        await LocalDataRepository.setAccessToken(value);
         emit(state.copyWith(isLoading: false, userModel: data));
       } else {
         emit(state.copyWith(isLoading: false, isError: true, error: data));

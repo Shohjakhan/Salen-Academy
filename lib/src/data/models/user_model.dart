@@ -1,33 +1,56 @@
 // To parse this JSON data, do
 //
-//     final userModel = userModelFromJson(jsonString);
+//     final userSignInModel = userSignInModelFromJson(jsonString);
 
 import 'dart:convert';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+UserSignInModel userSignInModelFromJson(String str) =>
+    UserSignInModel.fromJson(json.decode(str));
 
-String userModelToJson(UserModel data) => json.encode(data.toJson());
+String userSignInModelToJson(UserSignInModel data) =>
+    json.encode(data.toJson());
 
-class UserModel {
-    int id;
-    String username;
-    String email;
+class UserSignInModel {
+  String token;
+  User user;
 
-    UserModel({
-        required this.id,
-        required this.username,
-        required this.email,
-    });
+  UserSignInModel({
+    required this.token,
+    required this.user,
+  });
 
-    factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory UserSignInModel.fromJson(Map<String, dynamic> json) =>
+      UserSignInModel(
+        token: json["token"],
+        user: User.fromJson(json["user"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "token": token,
+        "user": user.toJson(),
+      };
+}
+
+class User {
+  int id;
+  String username;
+  String email;
+
+  User({
+    required this.id,
+    required this.username,
+    required this.email,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         username: json["username"],
         email: json["email"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "username": username,
         "email": email,
-    };
+      };
 }

@@ -14,7 +14,7 @@ abstract class SignInRepository {
   }) async {
     try {
       final data = await sl<ApiClient>().request(
-        '/login_api/',
+        '/login/',
         method: 'POST',
         body: {
           'username': userName,

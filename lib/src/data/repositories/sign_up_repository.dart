@@ -15,7 +15,7 @@ abstract class SignUpRepository {
   }) async {
     try {
       final data = await sl<ApiClient>().request(
-        '/register_api/',
+        '/signup/',
         method: 'POST',
         body: {
           'username': userName,
@@ -24,7 +24,7 @@ abstract class SignUpRepository {
         },
       );
 
-      return userModelFromJson(jsonEncode(data));
+      return userSignInModelFromJson(jsonEncode(data));
     } on ApiException catch (e) {
       throw ErrorModel.fromJson(e.body['username'][0]);
     } catch (e) {

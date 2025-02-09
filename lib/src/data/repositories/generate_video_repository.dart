@@ -14,7 +14,7 @@ abstract class GenerateVideoRepository {
   }) async {
     try {
       final data = await sl<ApiClient>().request(
-        '/generate_video/',
+        '/generate/',
         method: 'POST',
         body: {
           'prompt': topic,

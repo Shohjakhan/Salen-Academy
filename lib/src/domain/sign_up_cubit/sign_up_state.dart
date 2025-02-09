@@ -4,7 +4,7 @@ class SignUpState extends Equatable {
   final bool isLoading;
   final bool isError;
   final ErrorModel? error;
-  final UserModel? userModel;
+  final UserSignInModel? userModel;
 
   const SignUpState({
     required this.isLoading,
@@ -21,7 +21,7 @@ class SignUpState extends Equatable {
     bool? isLoading,
     bool? isError,
     ErrorModel? error,
-    UserModel? userModel,
+    UserSignInModel? userModel,
   }) {
     return SignUpState(
       isLoading: isLoading ?? this.isLoading,
