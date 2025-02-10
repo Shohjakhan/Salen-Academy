@@ -6,21 +6,23 @@ import 'dart:convert';
 
 import 'user_model.dart';
 
-SignInModel signInModelFromJson(String str) =>
-    SignInModel.fromJson(json.decode(str));
+UserSignUpModel userSignUpModelFromJson(String str) =>
+    UserSignUpModel.fromJson(json.decode(str));
 
-String signInModelToJson(SignInModel data) => json.encode(data.toJson());
+String userSignUpModelToJson(UserSignUpModel data) =>
+    json.encode(data.toJson());
 
-class SignInModel {
+class UserSignUpModel {
   String token;
   UserModel user;
 
-  SignInModel({
+  UserSignUpModel({
     required this.token,
     required this.user,
   });
 
-  factory SignInModel.fromJson(Map<String, dynamic> json) => SignInModel(
+  factory UserSignUpModel.fromJson(Map<String, dynamic> json) =>
+      UserSignUpModel(
         token: json["token"],
         user: UserModel.fromJson(json["user"]),
       );

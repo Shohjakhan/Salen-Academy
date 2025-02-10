@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:salen_academy/src/data/models/user_model.dart';
+import 'package:salen_academy/src/data/models/sign_up_model.dart';
 
 import '../../../injector_container.dart';
 import '../models/error_model.dart';
@@ -24,7 +24,7 @@ abstract class SignUpRepository {
         },
       );
 
-      return userSignInModelFromJson(jsonEncode(data));
+      return userSignUpModelFromJson(jsonEncode(data));
     } on ApiException catch (e) {
       throw ErrorModel.fromJson(e.body['username'][0]);
     } catch (e) {

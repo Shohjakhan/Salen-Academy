@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salen_academy/src/data/repositories/sign_up_repository.dart';
 
 import '../../data/models/error_model.dart';
-import '../../data/models/user_model.dart';
+import '../../data/models/sign_up_model.dart';
+import '../../data/repositories/local_data_repository.dart';
 
 part 'sign_up_state.dart';
 
@@ -25,10 +26,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: password,
       );
 
-      if (data is UserSignInModel) {
-        // ignore: non_constant_identifier_names
-        var LocalDataRepository;
-        await LocalDataRepository.setAccessToken(value);
+      if (data is UserSignUpModel) {
+        await LocalDataRepository.setAccessToken(data.token);
         emit(state.copyWith(isLoading: false, userModel: data));
       } else {
         emit(state.copyWith(isLoading: false, isError: true, error: data));
