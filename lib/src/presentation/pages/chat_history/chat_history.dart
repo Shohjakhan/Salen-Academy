@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:salen_academy/src/core/date_time_formatter.dart';
+import 'package:salen_academy/src/domain/video_list_cubit/video_list_cubit.dart';
 
 class HistoryPage extends StatefulWidget {
   static const String routeName = '/history'; // Route name for navigation
@@ -10,31 +13,10 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  List<Map<String, String>> videoHistory = [
-    {
-      "title": "Introduction to AI",
-      "thumbnail":
-          "/Users/gulistonpm/Projects/salen_academy/assets/images/images.jpeg",
-      "date": "Jan 25, 2025"
-    },
-    {
-      "title": "Building Apps with Flutter",
-      "thumbnail":
-          "/Users/gulistonpm/Projects/salen_academy/assets/images/flutter-igmguru_1527424732_l.jpg",
-      "date": "Jan 24, 2025"
-    },
-    {
-      "title": "Understanding Economics",
-      "thumbnail":
-          "/Users/gulistonpm/Projects/salen_academy/assets/images/Pros-and-Cons-of-Studying-Economics.jpg",
-      "date": "Jan 23, 2025"
-    },
-  ];
-
-  void _clearHistory() {
-    setState(() {
-      videoHistory.clear();
-    });
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<VideoListCubit>(context).getVideos();
   }
 
   @override
@@ -50,23 +32,28 @@ class _HistoryPageState extends State<HistoryPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete, color: Colors.white),
-            onPressed: () {
-              _clearHistory();
-            },
+            onPressed: () {},
           )
         ],
         elevation: 0.5,
       ),
       backgroundColor: Colors.grey[100],
-      body: videoHistory.isEmpty
-          ? const Center(
-              child: Text(
-                "No watch history",
-                style: TextStyle(color: Colors.black54, fontSize: 16),
-              ),
-            )
-          : ListView.builder(
-              itemCount: videoHistory.length,
+      body: Center(
+        child: BlocBuilder<VideoListCubit, VideoListState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return CircularProgressIndicator.adaptive();
+            }
+            if (state.videos.isEmpty) {
+              return const Center(
+                child: Text(
+                  "No watch history",
+                  style: TextStyle(color: Colors.black54, fontSize: 16),
+                ),
+              );
+            }
+            return ListView.builder(
+              itemCount: state.videos.length,
               itemBuilder: (context, index) {
                 return Card(
                   color: const Color(0xFFffa130),
@@ -78,26 +65,15 @@ class _HistoryPageState extends State<HistoryPage> {
                   ),
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(10),
-                    leading: SizedBox(
-                      width:
-                          80, // Prevents leading widget from consuming full width
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          videoHistory[index]["thumbnail"]!,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
                     title: Text(
-                      videoHistory[index]["title"]!,
+                      state.videos[index].prompt,
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     subtitle: Text(
-                      "Watched on ${videoHistory[index]["date"]}",
+                      "Watched on ${state.videos[index].createdAt.format('dd.MM.yyyy hh:mm')}",
                       style: TextStyle(color: Colors.grey[100]),
                     ),
                     trailing: const Icon(Icons.more_vert, color: Colors.white),
@@ -107,7 +83,10 @@ class _HistoryPageState extends State<HistoryPage> {
                   ),
                 );
               },
-            ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

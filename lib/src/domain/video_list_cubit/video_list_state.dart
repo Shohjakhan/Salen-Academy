@@ -1,37 +1,37 @@
-part of 'video_cubit.dart';
+part of 'video_list_cubit.dart';
 
-class VideoState extends Equatable {
+class VideoListState extends Equatable {
   final bool isLoading;
   final bool isError;
   final ErrorModel? error;
-  final String videoLink;
+  final List<VideoModel> videos;
 
-  const VideoState({
+  const VideoListState({
     required this.isLoading,
     required this.isError,
-    required this.videoLink,
+    required this.videos,
     this.error,
   });
 
-  factory VideoState.init() {
-    return VideoState(
+  factory VideoListState.init() {
+    return VideoListState(
       isLoading: false,
       isError: false,
-      videoLink: '',
+      videos: [],
     );
   }
 
-  VideoState copyWith({
+  VideoListState copyWith({
     bool? isLoading,
     bool? isError,
     ErrorModel? error,
-    String? videoLink,
+    List<VideoModel>? videos,
   }) {
-    return VideoState(
+    return VideoListState(
       isLoading: isLoading ?? this.isLoading,
       isError: isError ?? this.isError,
+      videos: videos ?? this.videos,
       error: error ?? this.error,
-      videoLink: videoLink ?? this.videoLink,
     );
   }
 
@@ -40,6 +40,6 @@ class VideoState extends Equatable {
         isLoading.hashCode,
         isError.hashCode,
         error.hashCode,
-        videoLink.hashCode,
+        videos.hashCode,
       ];
 }

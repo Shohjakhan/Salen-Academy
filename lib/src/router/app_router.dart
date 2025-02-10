@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:salen_academy/src/domain/sign_up_cubit/sign_up_cubit.dart';
 import 'package:salen_academy/src/domain/sing_in_cubit/sign_in_cubit.dart';
+import 'package:salen_academy/src/domain/video_list_cubit/video_list_cubit.dart';
 import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
 import 'package:salen_academy/src/presentation/pages/profile_page/profile_page.dart';
 import 'package:salen_academy/src/presentation/pages/sign_up/sing_up_page.dart';
@@ -66,7 +67,12 @@ abstract class AppRouter {
       GoRoute(
         name: HistoryPage.routeName,
         path: '/history',
-        builder: (context, state) => HistoryPage(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => VideoListCubit()),
+          ],
+          child: const HistoryPage(),
+        ),
       ),
     ],
   );
