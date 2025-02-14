@@ -32,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Generate Tutorials"),
         "language": MessageLookupByLibrary.simpleMessage("en"),
         "main_text": MessageLookupByLibrary.simpleMessage(
-            "Hi, what do you wanna learn today?\nTry generating tutorials or search for them."),
+            "Hi, what do you want to learn today?\nTry generating tutorials or search for them."),
         "text_generate_videos":
             MessageLookupByLibrary.simpleMessage("Generate your own videos"),
         "title_language": MessageLookupByLibrary.simpleMessage("English"),
