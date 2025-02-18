@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
 import 'package:salen_academy/src/presentation/pages/chat_history/chat_history.dart';
 import 'package:salen_academy/src/presentation/pages/profile_page/profile_page.dart';
 import 'package:salen_academy/src/presentation/pages/video_page/video_page.dart';
+
+import '../../../../theme/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'home';
@@ -17,17 +20,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFFE3E6EC), // Soft Background
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Row(
           children: [
-            _buildNeomorphicIconThemeMode(Icons.sunny, () {}),
+            _buildNeomorphicIconThemeMode(
+              Icons.sunny,
+              () {
+                themeProvider.toggleTheme(ThemeMode.light);
+              },
+            ),
             const SizedBox(width: 10),
             _buildNeomorphicIconThemeMode(
-                Icons.nightlight_round_outlined, () {}),
+              Icons.nightlight_round_outlined,
+              () {
+                themeProvider.toggleTheme(ThemeMode.dark);
+              },
+            ),
             const Spacer(),
             _buildLanguageSelector(),
           ],
@@ -72,7 +84,6 @@ class _HomePageState extends State<HomePage> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.black87,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -83,11 +94,11 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildNeomorphicIcon(Icons.analytics, () {}),
-                  _buildNeomorphicIcon(Icons.article, () {
+                  _buildNeomorphicIcon(context, Icons.analytics, () {}),
+                  _buildNeomorphicIcon(context, Icons.article, () {
                     context.pushNamed(HistoryPage.routeName);
                   }),
-                  _buildNeomorphicIcon(Icons.person, () {
+                  _buildNeomorphicIcon(context, Icons.person, () {
                     context.pushNamed(ProfilePage.routeName);
                   }),
                 ],
@@ -99,11 +110,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildNeomorphicIcon(IconData icon, VoidCallback onPressed) {
+  Widget _buildNeomorphicIcon(
+    BuildContext context,
+    IconData icon,
+    VoidCallback onPressed,
+  ) {
     return Container(
-      decoration: _buttonDecoration(),
+      decoration: _buttonDecoration(context),
       child: IconButton(
-        icon: Icon(icon, color: Colors.white, size: 50),
+        icon: Icon(
+          icon,
+          size: 50,
+        ),
         onPressed: onPressed,
       ),
     );
@@ -111,9 +129,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNeomorphicIconThemeMode(IconData icon, VoidCallback onPressed) {
     return Container(
-      decoration: _buttonDecoration(),
+      decoration: _buttonDecoration(context),
       child: IconButton(
-        icon: Icon(icon, color: Colors.white, size: 30),
+        icon: Icon(
+          icon,
+          size: 30,
+        ),
         onPressed: onPressed,
       ),
     );
@@ -129,10 +150,16 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               S.current.title_language,
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            SizedBox(width: 10),
-            Icon(Icons.language, color: Colors.black87),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(
+              Icons.language,
+            ),
           ],
         ),
         onSelected: (String item) {
@@ -167,16 +194,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      //     Row(
-      //   children: [
-      //     Text(
-      //       S.current.title_language,
-      //       style: TextStyle(fontWeight: FontWeight.w600),
-      //     ),
-      //     SizedBox(width: 10),
-      //     Icon(Icons.language, color: Colors.black87),
-      //   ],
-      // ),
     );
   }
 
@@ -185,20 +202,19 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        decoration: _buttonDecoration(),
+        decoration: _buttonDecoration(context),
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: Colors.white),
+            Icon(icon),
             const SizedBox(width: 10),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
             ),
           ],
         ),
@@ -208,24 +224,24 @@ class _HomePageState extends State<HomePage> {
 
   BoxDecoration _neomorphicDecoration() {
     return BoxDecoration(
-      color: const Color(0xFFE3E6EC),
       borderRadius: BorderRadius.circular(16),
+      color: Colors.white.withOpacity(0.1),
       boxShadow: [
         BoxShadow(
-          color: Colors.white,
           offset: const Offset(-4, -4),
+          color: Colors.white.withOpacity(0.1),
           blurRadius: 6,
         ),
         BoxShadow(
-          color: Colors.black.withOpacity(0.2),
           offset: const Offset(4, 4),
+          color: Colors.black.withOpacity(0.1),
           blurRadius: 6,
         ),
       ],
     );
   }
 
-  BoxDecoration _buttonDecoration() {
+  BoxDecoration _buttonDecoration(BuildContext context) {
     return BoxDecoration(
       color: const Color(0xFFffa130),
       borderRadius: BorderRadius.circular(16),
