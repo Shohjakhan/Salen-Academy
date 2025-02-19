@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salen_academy/src/data/models/generated_video_model.dart';
 import 'package:salen_academy/src/data/repositories/generate_video_repository.dart';
+import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
+import 'package:salen_academy/src/data/resources/remote/socket_client.dart';
 
 import '../../data/models/error_model.dart';
 
@@ -30,5 +32,16 @@ class VideoCubit extends Cubit<VideoState> {
     } on ErrorModel catch (e) {
       emit(state.copyWith(isLoading: false, isError: true, error: e));
     }
+  }
+
+  Future<void> onVideo() async {
+    try {
+      String token = LocalDataRepository.getAccessTokenSync();
+      var socket = await SocketClient.init(
+          'wss://salenacademy.com/ws/video-status/?token=$token');
+      if (socket.connected) {
+        socket.on('event', (data) {});
+      }
+    } catch (e) {}
   }
 }

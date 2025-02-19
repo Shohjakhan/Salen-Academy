@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
 import 'package:salen_academy/src/presentation/pages/welcome_page/welcome_page.dart';
 
@@ -35,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       // backgroundColor: Colors.orange,
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text(S.current.profile_header),
         backgroundColor: Colors.orange,
         actions: [
           IconButton(
@@ -74,10 +75,6 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             SizedBox(height: 10),
-            Text(
-              'Full Name: $fullName',
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _pickImage,
@@ -85,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.orange,
               ),
-              child: Text('Change Profile Picture'),
+              child: Text(S.current.btn_change_pic),
             ),
             Spacer(),
             ElevatedButton(
@@ -98,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.orange,
               ),
-              child: Text('Log out'),
+              child: Text(S.current.btn_change_pic),
             ),
           ],
         ),
@@ -171,7 +168,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               TextFormField(
                 controller: _usernameController,
                 decoration: InputDecoration(
-                  labelText: 'Username',
+                  labelText: S.current.field_username,
                   border: OutlineInputBorder(),
                 ),
               ),

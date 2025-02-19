@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/domain/sign_up_cubit/sign_up_cubit.dart';
 import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
 
@@ -103,8 +104,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           padding: const EdgeInsets.all(20.0),
                           child: Column(
                             children: [
-                              const Text(
-                                'Create Your Account',
+                              Text(
+                                S.current.welcome_text_2,
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
@@ -112,8 +113,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              const Text(
-                                'Join our learning community and unlock your potential!',
+                              Text(
+                                S.current.sign_up_text,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black54),
                               ),
@@ -121,10 +122,10 @@ class _SignUpPageState extends State<SignUpPage> {
                               // Full Name Field
                               _buildTextField(
                                 controller: fullNameController,
-                                labelText: 'Username',
+                                labelText: S.current.field_username,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your full name';
+                                    return S.current.field_username_text;
                                   }
                                   return null;
                                 },
@@ -133,10 +134,10 @@ class _SignUpPageState extends State<SignUpPage> {
                               // Email Field
                               _buildTextField(
                                 controller: emailController,
-                                labelText: 'Email',
+                                labelText: S.current.field_email,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your email';
+                                    return S.current.field_email_text;
                                   }
                                   if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
                                       .hasMatch(value)) {

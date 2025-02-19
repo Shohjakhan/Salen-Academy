@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/core/date_time_formatter.dart';
 import 'package:salen_academy/src/domain/video_list_cubit/video_list_cubit.dart';
 
@@ -23,9 +24,9 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Tutorial History",
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          S.current.chat_history,
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xFFffa130),
         iconTheme: const IconThemeData(color: Colors.white),
@@ -45,10 +46,10 @@ class _HistoryPageState extends State<HistoryPage> {
               return CircularProgressIndicator.adaptive();
             }
             if (state.videos.isEmpty) {
-              return const Center(
+              return Center(
                 child: Text(
-                  "No watch history",
-                  style: TextStyle(color: Colors.black54, fontSize: 16),
+                  S.current.no_history,
+                  style: const TextStyle(color: Colors.black54, fontSize: 16),
                 ),
               );
             }
@@ -73,7 +74,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       ),
                     ),
                     subtitle: Text(
-                      "Watched on ${state.videos[index].createdAt.format('dd.MM.yyyy hh:mm')}",
+                      " S.current.history_info,  ${state.videos[index].createdAt.format('dd.MM.yyyy hh:mm')}",
                       style: TextStyle(color: Colors.grey[100]),
                     ),
                     trailing: const Icon(Icons.more_vert, color: Colors.white),

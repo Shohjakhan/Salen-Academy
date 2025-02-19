@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/domain/sing_in_cubit/sign_in_cubit.dart';
 import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
 
@@ -89,28 +90,28 @@ class _SignInPageState extends State<SignInPage> {
                           padding: const EdgeInsets.all(20.0),
                           child: Column(
                             children: [
-                              const Text(
-                                'Welcome Back',
-                                style: TextStyle(
+                              Text(
+                                S.current.welcome_back,
+                                style: const TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              const Text(
-                                'Fill out the information below in order to access your account.',
+                              Text(
+                                S.current.sign_in_info,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.black54),
+                                style: const TextStyle(color: Colors.black54),
                               ),
                               const SizedBox(height: 30),
                               // Email Field
                               _buildTextField(
                                 controller: emailController,
-                                labelText: 'Username',
+                                labelText: S.current.field_username,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your Username';
+                                    return S.current.field_username_text;
                                   }
                                   // if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
                                   //     .hasMatch(value)) {
@@ -123,7 +124,7 @@ class _SignInPageState extends State<SignInPage> {
                               // Password Field with toggle visibility
                               _buildTextField(
                                 controller: passwordController,
-                                labelText: 'Password',
+                                labelText: S.current.field_password,
                                 obscureText: !_isPasswordVisible,
                                 suffixIcon: _isPasswordVisible
                                     ? Icons.visibility
@@ -135,7 +136,7 @@ class _SignInPageState extends State<SignInPage> {
                                 },
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
+                                    return S.current.field_password_text;
                                   }
                                   return null;
                                 },
@@ -192,8 +193,8 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                     child: state.isLoading
                                         ? CircularProgressIndicator.adaptive()
-                                        : const Text(
-                                            'Log In',
+                                        : Text(
+                                            S.current.btn_sing_in,
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: Colors.white,
