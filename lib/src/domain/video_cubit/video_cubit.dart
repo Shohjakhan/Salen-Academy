@@ -34,13 +34,21 @@ class VideoCubit extends Cubit<VideoState> {
     }
   }
 
+  Future<void> socketInit() async {
+    String token = LocalDataRepository.getAccessTokenSync();
+
+    await SocketClient.init(
+        'https://salenacademy.com/ws/video-status/?token=$token');
+  }
+
   Future<void> onVideo() async {
     try {
-      String token = LocalDataRepository.getAccessTokenSync();
-      var socket = await SocketClient.init(
-          'wss://salenacademy.com/ws/video-status/?token=$token');
+      var socket = SocketClient.socket;
       if (socket.connected) {
         socket.on('event', (data) {});
+      } else {
+        await socketInit();
+        onVideo();
       }
     } catch (e) {}
   }

@@ -31,13 +31,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
       "Darsliklarni yaratish",
     ),
+    "btn_save_changes": MessageLookupByLibrary.simpleMessage(
+      "O\'zgarishlarni saqlash",
+    ),
     "btn_sign_in_2": MessageLookupByLibrary.simpleMessage("Tizimga kirish"),
     "btn_sign_up": MessageLookupByLibrary.simpleMessage("Ro`yxatdan o`tish"),
     "btn_sign_up_2": MessageLookupByLibrary.simpleMessage(
       "Ro\'yxatdan o\'tish",
     ),
     "btn_sing_in": MessageLookupByLibrary.simpleMessage("Tizimga kirish"),
+    "change_pic": MessageLookupByLibrary.simpleMessage(
+      "Profil rasmini o\'zgartirish",
+    ),
     "chat_history": MessageLookupByLibrary.simpleMessage("Darslik tarixi"),
+    "edit_profile": MessageLookupByLibrary.simpleMessage(
+      "Profil rasmini o\'zgartirish",
+    ),
     "field_confirm_password": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
     ),
@@ -71,10 +80,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "field_username_text": MessageLookupByLibrary.simpleMessage(
       "Iltimos, foydalanuvchi nomingizni kiriting",
     ),
+    "full_name": MessageLookupByLibrary.simpleMessage("To\'liq ism"),
     "hint_generate_tutorials": MessageLookupByLibrary.simpleMessage(
       "Darsliklarni yaratish",
     ),
     "history_info": MessageLookupByLibrary.simpleMessage("Ko\'rildi"),
+    "image": MessageLookupByLibrary.simpleMessage("rasm"),
     "language": MessageLookupByLibrary.simpleMessage("uz"),
     "log_out": MessageLookupByLibrary.simpleMessage("Hisobdan chiqish"),
     "main_text": MessageLookupByLibrary.simpleMessage(

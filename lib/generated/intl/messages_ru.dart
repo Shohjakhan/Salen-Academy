@@ -31,11 +31,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
       "Создавайте собственные видео",
     ),
+    "btn_save_changes": MessageLookupByLibrary.simpleMessage(
+      "Сохранить изменения",
+    ),
     "btn_sign_in_2": MessageLookupByLibrary.simpleMessage("Авторизоваться"),
     "btn_sign_up": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
     "btn_sign_up_2": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
     "btn_sing_in": MessageLookupByLibrary.simpleMessage("Войти"),
+    "change_pic": MessageLookupByLibrary.simpleMessage(
+      "Изменить фотографию профиля",
+    ),
     "chat_history": MessageLookupByLibrary.simpleMessage("История учебника"),
+    "edit_profile": MessageLookupByLibrary.simpleMessage(
+      "Изменить фотографию профиля",
+    ),
     "field_confirm_password": MessageLookupByLibrary.simpleMessage(
       "Подтвердите пароль",
     ),
@@ -67,10 +76,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "field_username_text": MessageLookupByLibrary.simpleMessage(
       "Пожалуйста, введите ваше имя пользователя",
     ),
+    "full_name": MessageLookupByLibrary.simpleMessage("Полное имя"),
     "hint_generate_tutorials": MessageLookupByLibrary.simpleMessage(
       "Создать обучающие материалы",
     ),
     "history_info": MessageLookupByLibrary.simpleMessage("Смотрели на"),
+    "image": MessageLookupByLibrary.simpleMessage("изображение"),
     "language": MessageLookupByLibrary.simpleMessage("ru"),
     "log_out": MessageLookupByLibrary.simpleMessage("Выйти"),
     "main_text": MessageLookupByLibrary.simpleMessage(

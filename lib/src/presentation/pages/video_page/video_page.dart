@@ -29,7 +29,7 @@ class _VideoPageState extends State<VideoPage> {
     // Initialize with some default video
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(
-          'https://fe5d-195-158-11-141.ngrok-free.app//static/final_videos/ChainRule.mp4'),
+          'https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_7/slide_7.m3u8'),
     )..initialize().then((_) {
         setState(() {});
       });

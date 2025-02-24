@@ -28,9 +28,10 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -84,6 +85,16 @@ class S {
     );
   }
 
+  /// `O'zgarishlarni saqlash`
+  String get btn_save_changes {
+    return Intl.message(
+      'O\'zgarishlarni saqlash',
+      name: 'btn_save_changes',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tizimga kirish`
   String get btn_sign_in_2 {
     return Intl.message(
@@ -124,11 +135,31 @@ class S {
     );
   }
 
+  /// `Profil rasmini o'zgartirish`
+  String get change_pic {
+    return Intl.message(
+      'Profil rasmini o\'zgartirish',
+      name: 'change_pic',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Darslik tarixi`
   String get chat_history {
     return Intl.message(
       'Darslik tarixi',
       name: 'chat_history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profil rasmini o'zgartirish`
+  String get edit_profile {
+    return Intl.message(
+      'Profil rasmini o\'zgartirish',
+      name: 'edit_profile',
       desc: '',
       args: [],
     );
@@ -254,6 +285,11 @@ class S {
     );
   }
 
+  /// `To'liq ism`
+  String get full_name {
+    return Intl.message('To\'liq ism', name: 'full_name', desc: '', args: []);
+  }
+
   /// `Darsliklarni yaratish`
   String get hint_generate_tutorials {
     return Intl.message(
@@ -267,6 +303,11 @@ class S {
   /// `Ko'rildi`
   String get history_info {
     return Intl.message('Ko\'rildi', name: 'history_info', desc: '', args: []);
+  }
+
+  /// `rasm`
+  String get image {
+    return Intl.message('rasm', name: 'image', desc: '', args: []);
   }
 
   /// `uz`
@@ -388,8 +429,6 @@ class S {
       args: [],
     );
   }
-
-  get border => null;
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

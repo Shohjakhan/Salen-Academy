@@ -31,11 +31,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
       "Generate Tutorials",
     ),
+    "btn_save_changes": MessageLookupByLibrary.simpleMessage("Save Changes"),
     "btn_sign_in_2": MessageLookupByLibrary.simpleMessage("Log In"),
     "btn_sign_up": MessageLookupByLibrary.simpleMessage("Get Started"),
     "btn_sign_up_2": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "btn_sing_in": MessageLookupByLibrary.simpleMessage("Log in"),
+    "change_pic": MessageLookupByLibrary.simpleMessage(
+      "Change Profile Picture",
+    ),
     "chat_history": MessageLookupByLibrary.simpleMessage("Tutorial History"),
+    "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
     "field_confirm_password": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
     ),
@@ -65,10 +70,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "field_username_text": MessageLookupByLibrary.simpleMessage(
       "Please enter your username",
     ),
+    "full_name": MessageLookupByLibrary.simpleMessage("Full Name"),
     "hint_generate_tutorials": MessageLookupByLibrary.simpleMessage(
       "Generate Tutorials",
     ),
     "history_info": MessageLookupByLibrary.simpleMessage("Watched on"),
+    "image": MessageLookupByLibrary.simpleMessage("image"),
     "language": MessageLookupByLibrary.simpleMessage("en"),
     "log_out": MessageLookupByLibrary.simpleMessage("Log out"),
     "main_text": MessageLookupByLibrary.simpleMessage(

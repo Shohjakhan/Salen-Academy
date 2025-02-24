@@ -92,10 +92,7 @@ class _WelcomePageState extends State<WelcomePage> {
             SizedBox(height: 20),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
+                context.pushNamed(HomePage.routeName);
               },
               child: Container(
                 width: double.infinity,

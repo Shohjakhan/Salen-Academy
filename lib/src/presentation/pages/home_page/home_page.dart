@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
+import 'package:salen_academy/src/domain/video_cubit/video_cubit.dart';
 import 'package:salen_academy/src/presentation/pages/chat_history/chat_history.dart';
 import 'package:salen_academy/src/presentation/pages/profile_page/profile_page.dart';
 import 'package:salen_academy/src/presentation/pages/video_page/video_page.dart';
@@ -18,6 +20,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<VideoCubit>(context).socketInit();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
