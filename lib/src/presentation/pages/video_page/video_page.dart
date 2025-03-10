@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:salen_academy/generated/l10n.dart';
-import 'package:video_player/video_player.dart';
+import 'package:better_player/better_player.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class VideoPage extends StatefulWidget {
   static const String routeName = 'video';
@@ -13,34 +14,98 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> {
-  late VideoPlayerController _controller;
+  // Current video URL (initial URL) that will be updated when new video links arrive.
+  String _videoUrl =
+      'https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_7/slide_7.m3u8';
 
-  // For the user prompt
+  // Queue to store video links (slides) received from WebSocket or manually added.
+  final List<String> _videoQueue = [];
+
+  // WebSocket channel variable.
+  late WebSocketChannel _channel;
+
+  // BetterPlayer controller.
+  late BetterPlayerController _betterPlayerController;
+
+  // Controllers and variables for user input.
   final TextEditingController _searchController = TextEditingController();
-
-  // For the user’s chosen preferences
-  late String _selectedLanguage; // 'uz', 'ru', 'en'
-  late String _selectedQuality; // '1', '2', '3'
+  late String _selectedLanguage; // e.g. 'uz', 'ru', 'en'
+  late String _selectedQuality; // e.g. '1', '2', '3'
 
   @override
   void initState() {
     super.initState();
     _selectedLanguage = S.current.language;
-    // Initialize with some default video
-    _controller = VideoPlayerController.networkUrl(
+    _selectedQuality = '1'; // Default quality.
+
+    // Initialize BetterPlayer with the initial video URL.
+    _initializeBetterPlayer(_videoUrl);
+
+    // Establish the WebSocket connection.
+    _channel = WebSocketChannel.connect(
       Uri.parse(
-          'https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_7/slide_7.m3u8'),
-    )..initialize().then((_) {
-        setState(() {});
+          'wss://your-websocket-server-url'), // Replace with your actual WebSocket URL.
+    );
+
+    // Listen to incoming WebSocket messages.
+    _channel.stream.listen((message) {
+      debugPrint("WebSocket received: $message");
+      setState(() {
+        // Add each received video link to the queue.
+        _videoQueue.add(message);
       });
+    });
   }
 
-  // Show a dialog in the middle of the screen for choosing language and quality
+  // Initialize BetterPlayerController with the given URL.
+  void _initializeBetterPlayer(String url) {
+    BetterPlayerDataSource dataSource = BetterPlayerDataSource(
+      BetterPlayerDataSourceType.network,
+      url,
+      liveStream: true,
+    );
+
+    BetterPlayerConfiguration configuration = BetterPlayerConfiguration(
+      aspectRatio: 16 / 9,
+      autoPlay: true,
+      eventListener: (BetterPlayerEvent event) {
+        // When the video finishes, trigger the callback.
+        if (event.betterPlayerEventType == BetterPlayerEventType.finished) {
+          _onVideoEnd();
+        }
+      },
+    );
+
+    _betterPlayerController = BetterPlayerController(
+      configuration,
+      betterPlayerDataSource: dataSource,
+    );
+  }
+
+  // Called when the current video finishes playing.
+  void _onVideoEnd() {
+    if (_videoQueue.isNotEmpty) {
+      String nextUrl = _videoQueue.removeAt(0);
+      setState(() {
+        _videoUrl = nextUrl;
+      });
+      // Update the BetterPlayer data source to the new URL.
+      BetterPlayerDataSource newDataSource = BetterPlayerDataSource(
+        BetterPlayerDataSourceType.network,
+        _videoUrl,
+        liveStream: true,
+      );
+      _betterPlayerController.setupDataSource(newDataSource);
+    } else {
+      debugPrint("No more video links in the queue.");
+    }
+  }
+
+  // Show a dialog for selecting language and quality.
   Future<void> _showPreferencesDialog() async {
     return await showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        // We’ll use AlertDialog so it appears in the center
         return AlertDialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -49,7 +114,7 @@ class _VideoPageState extends State<VideoPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Language block
+                // Language selection.
                 ExpansionTile(
                   title: Text('Language'),
                   children: [
@@ -85,9 +150,8 @@ class _VideoPageState extends State<VideoPage> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 8),
-                // Quality block
+                // Quality selection.
                 ExpansionTile(
                   title: Text('Quality'),
                   children: [
@@ -130,16 +194,14 @@ class _VideoPageState extends State<VideoPage> {
             TextButton(
               child: Text('Cancel', style: TextStyle(color: Colors.grey)),
               onPressed: () {
-                Navigator.of(context).pop(); // close the dialog
+                Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFffa130),
-              ),
+                  backgroundColor: const Color(0xFFffa130)),
               child: Text('OK'),
               onPressed: () {
-                // After preferences chosen, proceed to send request
                 _sendRequest();
                 Navigator.of(context).pop();
               },
@@ -150,45 +212,35 @@ class _VideoPageState extends State<VideoPage> {
     );
   }
 
-  // This method will make the POST request to your API
+  // Sends a POST request to your API.
   Future<void> _sendRequest() async {
-    // Replace with your actual API URL
     const String apiUrl =
         "https://fe5d-195-158-11-141.ngrok-free.app//generate_video";
-
     final Map<String, dynamic> body = {
-      "language": _selectedLanguage, // "uz", "ru", or "en"
-      "prompt": _searchController.text, // from the search bar
-      "quality": _selectedQuality, // "1", "2", or "3"
-      "id": 8 // default value of 8
+      "language": _selectedLanguage,
+      "prompt": _searchController.text,
+      "quality": _selectedQuality,
+      "id": 8
     };
-
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(body),
       );
-
       if (response.statusCode == 200) {
-        // Parse the returned JSON, e.g. { "video_link": "http://..." }
         final decoded = jsonDecode(response.body);
         final String newVideoUrl = decoded['video_link'] ?? '';
-
         if (newVideoUrl.isNotEmpty) {
-          // Re-initialize the video player with the new URL
           setState(() {
-            _controller.pause();
-            _controller.dispose();
-
-            _controller = VideoPlayerController.networkUrl(
-              Uri.parse(newVideoUrl),
-            )..initialize().then((_) {
-                setState(() {
-                  // once the new video is initialized, rebuild
-                });
-              });
+            _videoUrl = newVideoUrl;
           });
+          BetterPlayerDataSource newDataSource = BetterPlayerDataSource(
+            BetterPlayerDataSourceType.network,
+            _videoUrl,
+            liveStream: true,
+          );
+          _betterPlayerController.setupDataSource(newDataSource);
         }
       } else {
         debugPrint("Error: ${response.statusCode}");
@@ -198,31 +250,11 @@ class _VideoPageState extends State<VideoPage> {
     }
   }
 
-  // Skip backward 5 seconds
-  void _skipBackward() {
-    final currentPosition = _controller.value.position;
-    Duration newPosition = currentPosition - const Duration(seconds: 5);
-    if (newPosition < Duration.zero) {
-      newPosition = Duration.zero;
-    }
-    _controller.seekTo(newPosition);
-  }
-
-  // Skip forward 5 seconds
-  void _skipForward() {
-    final currentPosition = _controller.value.position;
-    final maxPosition = _controller.value.duration;
-    Duration newPosition = currentPosition + const Duration(seconds: 5);
-    if (newPosition > maxPosition) {
-      newPosition = maxPosition;
-    }
-    _controller.seekTo(newPosition);
-  }
-
   @override
   void dispose() {
-    _controller.dispose();
+    _channel.sink.close();
     _searchController.dispose();
+    _betterPlayerController.dispose();
     super.dispose();
   }
 
@@ -243,50 +275,44 @@ class _VideoPageState extends State<VideoPage> {
         centerTitle: true,
         elevation: 8,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
-          ),
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
       body: Column(
         children: [
-          // Video player
+          // BetterPlayer widget for HLS streaming.
           AspectRatio(
-            aspectRatio: _controller.value.isInitialized
-                ? _controller.value.aspectRatio
-                : 16 / 9,
-            child: VideoPlayer(_controller),
+            aspectRatio: 16 / 9,
+            child: BetterPlayer(
+              controller: _betterPlayerController,
+            ),
           ),
-
-          // Playback controls (three icon buttons in a row)
+          // Optional playback controls.
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
                 icon: const Icon(Icons.replay_5),
-                onPressed: () => setState(() => _skipBackward()),
+                onPressed: () {
+                  // Add custom logic for replay if needed.
+                },
               ),
               IconButton(
-                icon: Icon(
-                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                ),
+                icon: const Icon(Icons.pause),
                 onPressed: () {
-                  setState(() {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
-                  });
+                  // Add custom logic for pause if needed.
                 },
               ),
               IconButton(
                 icon: const Icon(Icons.forward_5),
-                onPressed: () => setState(() => _skipForward()),
+                onPressed: () {
+                  // Add custom logic for forward if needed.
+                },
               ),
             ],
           ),
-
           const Spacer(),
-          // Container with the search bar and button
+          // Search bar and send button container.
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
@@ -338,11 +364,7 @@ class _VideoPageState extends State<VideoPage> {
                   ),
                   const SizedBox(width: 10),
                   ElevatedButton(
-                    onPressed: () {
-                      // When user clicks send, open the preferences dialog
-                      // Then the dialog’s OK button will call _sendRequest()
-                      _showPreferencesDialog();
-                    },
+                    onPressed: _showPreferencesDialog,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       shape: const CircleBorder(),
@@ -358,6 +380,29 @@ class _VideoPageState extends State<VideoPage> {
             ),
           ),
         ],
+      ),
+      // Floating Action Button to manually add test URLs to the queue.
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFFffa130),
+        child: const Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            // Manually add several test URLs.
+            _videoQueue.add(
+                "https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_6/slide_6.m3u8");
+            _videoQueue.add(
+                "https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_7/slide_7.m3u8");
+            _videoQueue.add(
+                "hhttps://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_7/slide_7.m3u8");
+            _videoQueue.add(
+                "https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_9/slide_9.m3u8");
+            _videoQueue.add(
+                "https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_10/slide_10.m3u8");
+            _videoQueue.add(
+                "https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_10/slide_11.m3u8");
+          });
+          debugPrint("Test URLs added to queue: $_videoQueue");
+        },
       ),
     );
   }
