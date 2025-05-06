@@ -1,0 +1,12 @@
+{
+  "btn_ai_tutorial_generator": "AI Tutorial Generator",
+  "btn_generate_tutorials": "Generate Tutorials",
+  "btn_sign_up": "Get Started",
+  "btn_sing_in": "Log in",
+  "hint_generate_tutorials": "Generate Tutorials",
+  "language": "en",
+  "main_text": "Hi, what do you wanna learn today?\nTry generating tutorials or search for them.",
+  "text_generate_videos": "Generate your own videos",
+  "title_language": "English",
+  "welcome_text": "The best and most effective way to learn any subject."
+}
