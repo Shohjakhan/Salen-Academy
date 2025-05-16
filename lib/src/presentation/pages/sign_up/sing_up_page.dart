@@ -21,11 +21,9 @@ class _SignUpPageState extends State<SignUpPage> {
       TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? errorMessage;
-  bool _isPasswordVisible = false; // To toggle password visibility
-  bool _isConfirmPasswordVisible =
-      false; // To toggle confirm password visibility
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
 
-  // Function to validate all fields
   void validateAndSignUp() {
     if (_formKey.currentState!.validate()) {
       if (passwordController.text != confirmPasswordController.text) {
@@ -41,7 +39,6 @@ class _SignUpPageState extends State<SignUpPage> {
           email: emailController.text,
           password: passwordController.text,
         );
-        // Proceed with sign-up logic
       }
     }
   }
@@ -49,215 +46,197 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFffa130),
-      body: Stack(
-        children: [
-          Positioned(
-            top: 60,
-            left: 10,
-            child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                size: 32,
-                color: Colors.black,
-              ),
-            ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF1E1E99), Color(0xFF6E33D1)],
           ),
-          // Background 3D shapes for aesthetic appeal
-          Positioned(
-            bottom: 40,
-            left: 40,
-            child: _build3DShape(Colors.white.withOpacity(0.3)),
-          ),
-          Positioned(
-            top: 20,
-            right: 20,
-            child: _build3DShape(Colors.white.withOpacity(0.2)),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Salen Academy',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+        ),
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.person_add, size: 48, color: Colors.white),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Join Salen Academy',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Create your account to get started',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        _buildTextField(
+                          controller: fullNameController,
+                          labelText: S.current.field_username,
+                          validator: (value) {
+                            if (value == null || value.isEmpty)
+                              return S.current.field_username_text;
+                            return null;
+                          },
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: emailController,
+                          labelText: S.current.field_email,
+                          validator: (value) {
+                            if (value == null || value.isEmpty)
+                              return S.current.field_email_text;
+                            if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value))
+                              return 'Please enter a valid email';
+                            return null;
+                          },
                         ),
-                        elevation: 6,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                S.current.welcome_text_2,
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                S.current.sign_up_text,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.black54),
-                              ),
-                              const SizedBox(height: 30),
-                              // Full Name Field
-                              _buildTextField(
-                                controller: fullNameController,
-                                labelText: S.current.field_username,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return S.current.field_username_text;
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 20),
-                              // Email Field
-                              _buildTextField(
-                                controller: emailController,
-                                labelText: S.current.field_email,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return S.current.field_email_text;
-                                  }
-                                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-                                      .hasMatch(value)) {
-                                    return 'Please enter a valid email';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 20),
-                              // Password Field with toggle visibility
-                              _buildTextField(
-                                controller: passwordController,
-                                labelText: 'Password',
-                                obscureText: !_isPasswordVisible,
-                                suffixIcon: _isPasswordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                onSuffixIconPressed: () {
-                                  setState(() {
-                                    _isPasswordVisible = !_isPasswordVisible;
-                                  });
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
-                                  }
-                                  if (value.length < 6) {
-                                    return 'Password must be at least 6 characters';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 20),
-                              // Confirm Password Field with toggle visibility
-                              _buildTextField(
-                                controller: confirmPasswordController,
-                                labelText: 'Confirm Password',
-                                obscureText: !_isConfirmPasswordVisible,
-                                suffixIcon: _isConfirmPasswordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                onSuffixIconPressed: () {
-                                  setState(() {
-                                    _isConfirmPasswordVisible =
-                                        !_isConfirmPasswordVisible;
-                                  });
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please confirm your password';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 10),
-                              // Error Message
-                              if (errorMessage != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 20.0),
-                                  child: Text(
-                                    errorMessage!,
-                                    style: const TextStyle(
-                                        color: Colors.red, fontSize: 14.0),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: passwordController,
+                          labelText: 'Password',
+                          obscureText: !_isPasswordVisible,
+                          suffixIcon: _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          onSuffixIconPressed: () => setState(
+                              () => _isPasswordVisible = !_isPasswordVisible),
+                          validator: (value) {
+                            if (value == null || value.isEmpty)
+                              return 'Please enter your password';
+                            if (value.length < 6)
+                              return 'Password must be at least 6 characters';
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        _buildTextField(
+                          controller: confirmPasswordController,
+                          labelText: 'Confirm Password',
+                          obscureText: !_isConfirmPasswordVisible,
+                          suffixIcon: _isConfirmPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          onSuffixIconPressed: () => setState(() =>
+                              _isConfirmPasswordVisible =
+                                  !_isConfirmPasswordVisible),
+                          validator: (value) {
+                            if (value == null || value.isEmpty)
+                              return 'Please confirm your password';
+                            return null;
+                          },
+                        ),
+                        if (errorMessage != null) ...[
+                          const SizedBox(height: 12),
+                          Text(errorMessage!,
+                              style: TextStyle(color: Colors.redAccent)),
+                        ],
+                        const SizedBox(height: 24),
+                        BlocBuilder<SignUpCubit, SignUpState>(
+                          buildWhen: (previous, current) {
+                            if (current.userModel != null) {
+                              context.goNamed(HomePage.routeName);
+                            }
+                            return true;
+                          },
+                          builder: (context, state) {
+                            return GestureDetector(
+                              onTap: state.isLoading ? null : validateAndSignUp,
+                              child: Container(
+                                width: double.infinity,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFF4e57f6),
+                                      Color(0xFFe66465)
+                                    ],
                                   ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 8,
+                                      offset: Offset(0, 4),
+                                    )
+                                  ],
                                 ),
-                              const SizedBox(height: 20),
-                              // Sign Up Button
-                              BlocBuilder<SignUpCubit, SignUpState>(
-                                buildWhen: (previous, current) {
-                                  if (current.userModel != null) {
-                                    context.goNamed(HomePage.routeName);
-                                  }
-
-                                  return true;
-                                },
-                                builder: (context, state) {
-                                  return ElevatedButton(
-                                    onPressed: state.isLoading
-                                        ? null
-                                        : validateAndSignUp,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(0xFFffa130),
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 100,
-                                        vertical: 16,
+                                alignment: Alignment.center,
+                                child: state.isLoading
+                                    ? CircularProgressIndicator.adaptive(
+                                        valueColor: AlwaysStoppedAnimation(
+                                            Colors.white))
+                                    : Text(
+                                        'Create Account →',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      shadowColor: Colors.grey.withOpacity(0.3),
-                                      elevation: 10,
-                                    ),
-                                    child: state.isLoading
-                                        ? CircularProgressIndicator.adaptive()
-                                        : const Text(
-                                            'Sign Up',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                  );
-                                },
                               ),
-                            ],
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.g_mobiledata,
+                                  size: 32, color: Colors.white),
+                            ),
+                            const SizedBox(width: 16),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.facebook,
+                                  size: 32, color: Colors.white),
+                            ),
+                            const SizedBox(width: 16),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.apple,
+                                  size: 32, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        TextButton(
+                          onPressed: () => context.go('/signin'),
+                          child: Text(
+                            '← Already have an account',
+                            style: TextStyle(color: Colors.white70),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 
-  // Reusable TextField Widget with modern UI and optional password visibility toggle
   Widget _buildTextField({
     required TextEditingController controller,
     required String labelText,
@@ -269,50 +248,20 @@ class _SignUpPageState extends State<SignUpPage> {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
+      validator: validator,
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.black54, fontSize: 14.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.9),
         suffixIcon: suffixIcon != null
             ? IconButton(
-                icon: Icon(suffixIcon, color: Colors.black54),
-                onPressed: onSuffixIconPressed,
-              )
+                icon: Icon(suffixIcon, color: Colors.grey),
+                onPressed: onSuffixIconPressed)
             : null,
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: const BorderSide(color: Colors.orange),
-        ),
-      ),
-      validator: validator,
-    );
-  }
-
-  // 3D shape effect for background
-  Widget _build3DShape(Color color) {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.6),
-            blurRadius: 50,
-            spreadRadius: 20,
-          ),
-        ],
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
       ),
     );
   }

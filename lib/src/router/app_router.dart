@@ -9,7 +9,6 @@ import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
 import 'package:salen_academy/src/presentation/pages/profile_page/profile_page.dart';
 import 'package:salen_academy/src/presentation/pages/sign_up/sing_up_page.dart';
 import 'package:salen_academy/src/presentation/pages/video_page/video_page.dart';
-import 'package:salen_academy/src/presentation/pages/chat_history/chat_history.dart';
 
 import '../presentation/pages/sign_in/sign_in_page.dart';
 import '../presentation/pages/splash_page/splash_page.dart';
@@ -71,16 +70,6 @@ abstract class AppRouter {
         name: VideoPage.routeName,
         path: '/video',
         builder: (context, state) => VideoPage(),
-      ),
-      GoRoute(
-        name: HistoryPage.routeName,
-        path: '/history',
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => VideoListCubit()),
-          ],
-          child: const HistoryPage(),
-        ),
       ),
     ],
   );

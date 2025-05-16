@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
@@ -25,19 +26,22 @@ class _WelcomePageState extends State<WelcomePage> {
           children: [
             Center(
               child: Image.asset(
-                'assets/images/welcome_image.png',
-                width: 250,
+                'assets/images/logo_updated.png',
+                width: 200,
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 5),
             Text(
-              'Salen Academy',
+              'Ready to Transform Your Learning?',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 0, 58, 158)),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 5),
             Text(
-              S.current.welcome_text,
+              'Join thousands of students who are learning smarter with Salen Academy.',
               maxLines: 3,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
@@ -51,9 +55,9 @@ class _WelcomePageState extends State<WelcomePage> {
                 width: double.infinity,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xFFff9700),
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                        colors: [Color(0xFF4e57f6), Color(0xFFe66465)])),
                 child: Center(
                   child: Text(
                     S.current.btn_sign_up,

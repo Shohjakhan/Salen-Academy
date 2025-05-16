@@ -5,145 +5,155 @@ import 'package:provider/provider.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
 import 'package:salen_academy/src/domain/video_cubit/video_cubit.dart';
-import 'package:salen_academy/src/presentation/pages/chat_history/chat_history.dart';
 import 'package:salen_academy/src/presentation/pages/profile_page/profile_page.dart';
 import 'package:salen_academy/src/presentation/pages/video_page/video_page.dart';
-
 import '../../../../theme/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
-  static const String routeName = 'home';
-  const HomePage({super.key});
+  static const String routeName = '/home';
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+  final _pages = [HomeContent(), VideoPage(), ProfilePage()];
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<VideoCubit>(context).socketInit();
   }
 
+  void _onTapNav(int index) {
+    setState(() => _currentIndex = index);
+    switch (index) {
+      case 0:
+        context.go('/home');
+        break;
+      case 2:
+        context.goNamed(VideoPage.routeName);
+        break;
+      case 3:
+        context.goNamed(ProfilePage.routeName);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFF4e57f6), Color(0xFFe66465)],
+              ),
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20))),
+        ),
         title: Row(
           children: [
-            _buildNeomorphicIconThemeMode(
-              Icons.sunny,
-              () {
-                themeProvider.toggleTheme(ThemeMode.light);
-              },
-            ),
+            _buildToggleIcon(
+                Icons.sunny, () => themeProvider.toggleTheme(ThemeMode.light)),
             const SizedBox(width: 10),
-            _buildNeomorphicIconThemeMode(
-              Icons.nightlight_round_outlined,
-              () {
-                themeProvider.toggleTheme(ThemeMode.dark);
-              },
-            ),
+            _buildToggleIcon(Icons.nightlight_round_outlined,
+                () => themeProvider.toggleTheme(ThemeMode.dark)),
             const Spacer(),
             _buildLanguageSelector(),
           ],
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Search Tutorials Button
-              Column(
-                children: [
-                  SizedBox(height: 30),
-                  _buildNeomorphicButton(
-                    S.current.btn_generate_tutorials,
-                    Icons.search,
-                    () {
-                      context.pushNamed(VideoPage.routeName);
-                    },
-                  ),
-                ],
-              ),
-              // 3D Panda Image
-              Column(
-                children: [
-                  Container(
-                    decoration: _neomorphicDecoration(),
-                    padding: const EdgeInsets.all(15),
-                    child: const Image(
-                      height: 200,
-                      width: 200,
-                      image: AssetImage('assets/images/main_image.png'),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: Transform.translate(
+        offset: const Offset(0, -10), // lift the bar by 10px
+        child: Container(
+          height: 80,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFF4e57f6), Color(0xFFe66465)],
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(4, (index) {
+                final icons = [
+                  Icons.home_filled,
+                  Icons.play_arrow_rounded,
+                  Icons.chat_rounded,
+                  Icons.person_outlined
+                ];
+                final labels = ['Home', 'Tutorial', 'Chat', 'Profile'];
+                final isActive = _currentIndex == index;
+                return GestureDetector(
+                  onTap: () => _onTapNav(index),
+                  child: Transform.translate(
+                    offset: isActive ? const Offset(0, -25) : Offset.zero,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: isActive ? 70 : 40,
+                          height: isActive ? 70 : 40,
+                          decoration: BoxDecoration(
+                            color: isActive ? Colors.white : Colors.transparent,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            icons[index],
+                            size: isActive ? 40 : 30,
+                            color: isActive
+                                ? Theme.of(context).primaryColor
+                                : Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          labels[index],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: isActive ? 14 : 12,
+                            fontWeight:
+                                isActive ? FontWeight.bold : FontWeight.normal,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 30),
-                  // Description Text
-                  Text(
-                    S.current.main_text,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-
-              // Bottom Navigation Buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildNeomorphicIcon(context, Icons.analytics, () {}),
-                  _buildNeomorphicIcon(context, Icons.article, () {
-                    context.pushNamed(HistoryPage.routeName);
-                  }),
-                  _buildNeomorphicIcon(context, Icons.person, () {
-                    context.pushNamed(ProfilePage.routeName);
-                  }),
-                ],
-              ),
-            ],
+                );
+              }),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildNeomorphicIcon(
-    BuildContext context,
-    IconData icon,
-    VoidCallback onPressed,
-  ) {
+  Widget _buildToggleIcon(IconData icon, VoidCallback onTap) {
     return Container(
-      decoration: _buttonDecoration(context),
-      child: IconButton(
-        icon: Icon(
-          icon,
-          size: 50,
-        ),
-        onPressed: onPressed,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
       ),
-    );
-  }
-
-  Widget _buildNeomorphicIconThemeMode(IconData icon, VoidCallback onPressed) {
-    return Container(
-      decoration: _buttonDecoration(context),
       child: IconButton(
-        icon: Icon(
-          icon,
-          size: 30,
-        ),
-        onPressed: onPressed,
+        icon: Icon(icon, size: 30, color: Colors.white),
+        onPressed: onTap,
       ),
     );
   }
@@ -151,115 +161,70 @@ class _HomePageState extends State<HomePage> {
   Widget _buildLanguageSelector() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-      decoration: _neomorphicDecoration(),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: PopupMenuButton<String>(
-        initialValue: S.current.language,
+        initialValue: LocalDataRepository.getLanguageCodeSync(),
         child: Row(
           children: [
-            Text(
-              S.current.title_language,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Icon(
-              Icons.language,
-            ),
+            Text(S.current.title_language,
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w600)),
+            const SizedBox(width: 10),
+            const Icon(Icons.language, color: Colors.white),
           ],
         ),
-        onSelected: (String item) {
-          setState(() {
-            switch (item) {
-              case 'uz':
-                S.load(Locale('uz'));
-                break;
-              case 'ru':
-                S.load(Locale('ru'));
-                break;
-              case 'en':
-                S.load(Locale('en'));
-                break;
-              default:
-            }
-            LocalDataRepository.setLanguageCodeSync(item);
-          });
+        onSelected: (code) {
+          S.load(Locale(code));
+          LocalDataRepository.setLanguageCodeSync(code);
+          setState(() {});
         },
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-          const PopupMenuItem<String>(
-            value: 'en',
-            child: Text('English'),
-          ),
-          const PopupMenuItem<String>(
-            value: 'ru',
-            child: Text('Русский'),
-          ),
-          const PopupMenuItem<String>(
-            value: 'uz',
-            child: Text('O`zbekcha'),
-          ),
+        itemBuilder: (_) => const [
+          PopupMenuItem(value: 'en', child: Text('English')),
+          PopupMenuItem(value: 'ru', child: Text('Русский')),
+          PopupMenuItem(value: 'uz', child: Text("O'zbekcha")),
         ],
       ),
     );
   }
+}
 
-  Widget _buildNeomorphicButton(
-      String title, IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: _buttonDecoration(context),
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon),
-            const SizedBox(width: 10),
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white),
-            ),
-          ],
+class HomeContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  children: const [
+                    Text('Math Problems',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8),
+                    Text('Get step-by-step solutions to complex equations',
+                        textAlign: TextAlign.center),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+              Image.asset('assets/images/main_image.png',
+                  width: 200, height: 200),
+            ],
+          ),
         ),
       ),
-    );
-  }
-
-  BoxDecoration _neomorphicDecoration() {
-    return BoxDecoration(
-      borderRadius: BorderRadius.circular(16),
-      color: Colors.white.withOpacity(0.1),
-      boxShadow: [
-        BoxShadow(
-          offset: const Offset(-4, -4),
-          color: Colors.white.withOpacity(0.1),
-          blurRadius: 6,
-        ),
-        BoxShadow(
-          offset: const Offset(4, 4),
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 6,
-        ),
-      ],
-    );
-  }
-
-  BoxDecoration _buttonDecoration(BuildContext context) {
-    return BoxDecoration(
-      color: const Color(0xFFffa130),
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.orangeAccent.withOpacity(0.5),
-          offset: const Offset(4, 4),
-          blurRadius: 6,
-        ),
-      ],
     );
   }
 }
