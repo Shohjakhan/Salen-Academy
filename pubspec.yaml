@@ -57,6 +57,7 @@ dependencies:
   # isar_flutter_libs: ^3.1.0+1
   custom_hls_video: ^0.0.5
   web_socket_channel: ^3.0.2
+  curved_navigation_bar: ^1.0.6
 
 dev_dependencies:
   flutter_test:

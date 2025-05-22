@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart'; // For photo access
 
 class VideoPage extends StatefulWidget {
@@ -15,31 +14,11 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> {
-  String _videoUrl =
-      'https://pub-31882e13eb4a4994a7fcd18e5828bcf3.r2.dev/order_9999/slide_videos/slide_7/slide_7.m3u8';
-  final List<String> _videoQueue = [];
   late WebSocketChannel _channel;
   final TextEditingController _searchController = TextEditingController();
   late String _selectedLanguage;
   late String _selectedQuality;
-  int _currentIndex = 2; // VideoPage is the Tutorial tab
   bool _isSidebarOpen = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedLanguage = S.current.language;
-    _selectedQuality = '1';
-    _channel = WebSocketChannel.connect(
-      Uri.parse('wss://your-websocket-server-url'),
-    );
-    _channel.stream.listen((message) {
-      debugPrint("WebSocket received: $message");
-      setState(() {
-        _videoQueue.add(message);
-      });
-    });
-  }
 
   Future<void> _sendRequest() async {
     const String apiUrl =
@@ -60,33 +39,13 @@ class _VideoPageState extends State<VideoPage> {
         final decoded = jsonDecode(response.body);
         final String newVideoUrl = decoded['video_link'] ?? '';
         if (newVideoUrl.isNotEmpty) {
-          setState(() {
-            _videoUrl = newVideoUrl;
-          });
+          setState(() {});
         }
       } else {
         debugPrint("Error: ${response.statusCode}");
       }
     } catch (e) {
       debugPrint("Exception during API call: $e");
-    }
-  }
-
-  void _onTapNav(int index) {
-    setState(() => _currentIndex = index);
-    switch (index) {
-      case 0:
-        context.go('/home');
-        break;
-      case 1:
-        context.goNamed('history');
-        break;
-      case 2:
-        context.goNamed(VideoPage.routeName);
-        break;
-      case 3:
-        context.goNamed('profile');
-        break;
     }
   }
 
@@ -135,7 +94,7 @@ class _VideoPageState extends State<VideoPage> {
           },
         ),
         title: Text(
-          S.current.btn_ai_tutorial_generator,
+          S.current.title_generator,
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -157,7 +116,7 @@ class _VideoPageState extends State<VideoPage> {
                 ),
               ),
               child: Text(
-                'New Chat',
+                S.current.btn_new_chat,
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
@@ -209,11 +168,11 @@ class _VideoPageState extends State<VideoPage> {
                       child: TextField(
                         controller: _searchController,
                         style: const TextStyle(color: Colors.white),
-                        decoration: const InputDecoration(
-                          hintText: 'Type your prompt here...',
-                          hintStyle: TextStyle(color: Colors.white70),
+                        decoration: InputDecoration(
+                          hintText: S.current.field_promt,
+                          hintStyle: const TextStyle(color: Colors.white70),
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 14),
                         ),
                       ),
@@ -244,75 +203,6 @@ class _VideoPageState extends State<VideoPage> {
               ),
             ),
         ],
-      ),
-      bottomNavigationBar: Transform.translate(
-        offset: const Offset(0, -10), // Adjusted to prevent overflow
-        child: Container(
-          height: 80,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color(0xFF4e57f6), Color(0xFFe66465)],
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(4, (index) {
-                final icons = [
-                  Icons.home_filled,
-                  Icons.play_arrow_rounded,
-                  Icons.chat_rounded,
-                  Icons.person_outlined
-                ];
-                final labels = ['Home', 'Chat', 'Tutorial', 'Profile'];
-                final isActive = _currentIndex == index;
-                return GestureDetector(
-                  onTap: () => _onTapNav(index),
-                  child: Transform.translate(
-                    offset: isActive ? const Offset(0, -25) : Offset.zero,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: isActive ? 70 : 40,
-                          height: isActive ? 70 : 40,
-                          decoration: BoxDecoration(
-                            color: isActive ? Colors.white : Colors.transparent,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            icons[index],
-                            size: isActive ? 40 : 30,
-                            color: isActive
-                                ? Theme.of(context).primaryColor
-                                : Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          labels[index],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: isActive ? 14 : 12,
-                            fontWeight:
-                                isActive ? FontWeight.bold : FontWeight.normal,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }),
-            ),
-          ),
-        ),
       ),
     );
   }

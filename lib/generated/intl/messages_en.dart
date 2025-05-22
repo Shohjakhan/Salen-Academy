@@ -22,84 +22,72 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "btn_ai_tutorial_generator": MessageLookupByLibrary.simpleMessage(
-      "AI Tutorial Generator",
+    "alr_acc": MessageLookupByLibrary.simpleMessage(
+      "← Already have an account",
     ),
-    "btn_change_pic": MessageLookupByLibrary.simpleMessage(
-      "Change Profile Picture",
+    "btn_create_acc": MessageLookupByLibrary.simpleMessage("Create Account →"),
+    "btn_get_started": MessageLookupByLibrary.simpleMessage("Get Started"),
+    "btn_log_in": MessageLookupByLibrary.simpleMessage("Log in"),
+    "btn_log_out": MessageLookupByLibrary.simpleMessage("Log Out"),
+    "btn_new_chat": MessageLookupByLibrary.simpleMessage("New Chat"),
+    "btn_sign_in": MessageLookupByLibrary.simpleMessage("Sign In →"),
+    "create_account": MessageLookupByLibrary.simpleMessage(
+      "Create your account to get started",
     ),
-    "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
-      "Generate Tutorials",
+    "dont_acc": MessageLookupByLibrary.simpleMessage(
+      "Don\'t have an account + ",
     ),
-    "btn_save_changes": MessageLookupByLibrary.simpleMessage("Save Changes"),
-    "btn_sign_in_2": MessageLookupByLibrary.simpleMessage("Log In"),
-    "btn_sign_up": MessageLookupByLibrary.simpleMessage("Get Started"),
-    "btn_sign_up_2": MessageLookupByLibrary.simpleMessage("Sign Up"),
-    "btn_sing_in": MessageLookupByLibrary.simpleMessage("Log in"),
-    "change_pic": MessageLookupByLibrary.simpleMessage(
-      "Change Profile Picture",
-    ),
-    "chat_history": MessageLookupByLibrary.simpleMessage("Tutorial History"),
-    "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
-    "field_confirm_password": MessageLookupByLibrary.simpleMessage(
-      "Confirm Password",
-    ),
-    "field_confirm_password_text": MessageLookupByLibrary.simpleMessage(
+    "error_msg_cpassword": MessageLookupByLibrary.simpleMessage(
       "Please confirm your password",
     ),
-    "field_email": MessageLookupByLibrary.simpleMessage("Email"),
-    "field_email_text": MessageLookupByLibrary.simpleMessage(
+    "error_msg_email": MessageLookupByLibrary.simpleMessage(
+      "Please enter your email",
+    ),
+    "error_msg_email_2": MessageLookupByLibrary.simpleMessage(
       "Please enter a valid email",
     ),
-    "field_password": MessageLookupByLibrary.simpleMessage("Password"),
-    "field_password_2": MessageLookupByLibrary.simpleMessage("Password"),
-    "field_password_2_text": MessageLookupByLibrary.simpleMessage(
+    "error_msg_password": MessageLookupByLibrary.simpleMessage(
       "Please enter your password",
     ),
-    "field_password_text": MessageLookupByLibrary.simpleMessage(
-      "Please enter your password",
-    ),
-    "field_password_text_2": MessageLookupByLibrary.simpleMessage(
+    "error_msg_password_2": MessageLookupByLibrary.simpleMessage(
       "Password must be at least 6 characters",
     ),
-    "field_username": MessageLookupByLibrary.simpleMessage("Username"),
-    "field_username_2": MessageLookupByLibrary.simpleMessage("Username"),
-    "field_username_2_text": MessageLookupByLibrary.simpleMessage(
-      "Please enter your Username",
-    ),
-    "field_username_text": MessageLookupByLibrary.simpleMessage(
+    "error_msg_username": MessageLookupByLibrary.simpleMessage(
       "Please enter your username",
     ),
-    "full_name": MessageLookupByLibrary.simpleMessage("Full Name"),
-    "hint_generate_tutorials": MessageLookupByLibrary.simpleMessage(
-      "Generate Tutorials",
+    "error_password": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match!",
     ),
-    "history_info": MessageLookupByLibrary.simpleMessage("Watched on"),
-    "image": MessageLookupByLibrary.simpleMessage("image"),
-    "language": MessageLookupByLibrary.simpleMessage("en"),
-    "log_out": MessageLookupByLibrary.simpleMessage("Log out"),
-    "main_text": MessageLookupByLibrary.simpleMessage(
-      "Hi, what do you wanna learn today?\nTry generating tutorials or search for them.",
+    "field_cpassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+    "field_email": MessageLookupByLibrary.simpleMessage("Email"),
+    "field_npassword": MessageLookupByLibrary.simpleMessage("New password"),
+    "field_password": MessageLookupByLibrary.simpleMessage("Password"),
+    "field_promt": MessageLookupByLibrary.simpleMessage(
+      "Type your prompt here...",
     ),
-    "no_history": MessageLookupByLibrary.simpleMessage("No watch history"),
-    "profile_header": MessageLookupByLibrary.simpleMessage("Profile"),
-    "profile_username": MessageLookupByLibrary.simpleMessage("Username"),
-    "sign_in_info": MessageLookupByLibrary.simpleMessage(
-      "Fill out the information below in order to access your account.",
+    "field_username": MessageLookupByLibrary.simpleMessage("Username"),
+    "forgot_password": MessageLookupByLibrary.simpleMessage("Forgot password?"),
+    "join_text": MessageLookupByLibrary.simpleMessage("Join Salen Academy"),
+    "main_screen_text": MessageLookupByLibrary.simpleMessage("Math Problems?"),
+    "main_screen_text_2": MessageLookupByLibrary.simpleMessage(
+      "Get step-by-step solutions to complex equations",
     ),
-    "sign_up_text": MessageLookupByLibrary.simpleMessage(
-      "Join our learning community and unlock your potential!",
+    "msg_tutorial": MessageLookupByLibrary.simpleMessage("Coming soon..."),
+    "profile_page": MessageLookupByLibrary.simpleMessage("Profile Page"),
+    "rem_me": MessageLookupByLibrary.simpleMessage("Remember me"),
+    "sign_in_text": MessageLookupByLibrary.simpleMessage(
+      "Sign in to your account",
     ),
-    "text_generate_videos": MessageLookupByLibrary.simpleMessage(
-      "Generate your own videos",
+    "title_generator": MessageLookupByLibrary.simpleMessage(
+      "AI Math Problem Solver",
     ),
-    "title_language": MessageLookupByLibrary.simpleMessage("English"),
+    "video_tutorial": MessageLookupByLibrary.simpleMessage("Video Tutorial"),
     "welcome_back": MessageLookupByLibrary.simpleMessage("Welcome Back"),
     "welcome_text": MessageLookupByLibrary.simpleMessage(
-      "The best and most effective way to learn any subject.",
+      "Ready to Transform Your Learning?",
     ),
     "welcome_text_2": MessageLookupByLibrary.simpleMessage(
-      "Create Your Account",
+      "Join thousands of students who are learning smarter with Salen Academy.",
     ),
   };
 }

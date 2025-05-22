@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/domain/sing_in_cubit/sign_in_cubit.dart';
-import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
 
 class SignInPage extends StatefulWidget {
   static const String routeName = '/signin';
@@ -51,21 +50,19 @@ class _SignInPageState extends State<SignInPage> {
                 children: [
                   const Icon(Icons.lock, size: 48, color: Colors.white),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Welcome Back',
-                    style: TextStyle(
+                  Text(
+                    S.current.welcome_back,
+                    style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Sign in to your account',
-                    style: TextStyle(fontSize: 16, color: Colors.white70),
+                  Text(
+                    S.current.sign_in_text,
+                    style: const TextStyle(fontSize: 16, color: Colors.white70),
                   ),
                   const SizedBox(height: 32),
-
-                  // ────────────  FORM FIELDS  ────────────
                   Form(
                     key: _formKey,
                     child: Column(
@@ -74,8 +71,9 @@ class _SignInPageState extends State<SignInPage> {
                           controller: emailController,
                           labelText: S.current.field_email,
                           validator: (v) {
-                            if (v == null || v.isEmpty)
-                              return S.current.field_email_text;
+                            if (v == null || v.isEmpty) {
+                              return S.current.error_msg_email;
+                            }
                             return null;
                           },
                         ),
@@ -90,12 +88,12 @@ class _SignInPageState extends State<SignInPage> {
                           onSuffixIconPressed: () => setState(
                               () => _isPasswordVisible = !_isPasswordVisible),
                           validator: (v) {
-                            if (v == null || v.isEmpty)
-                              return S.current.field_password_text;
+                            if (v == null || v.isEmpty) {
+                              return S.current.error_msg_password;
+                            }
                             return null;
                           },
                         ),
-
                         const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,20 +107,19 @@ class _SignInPageState extends State<SignInPage> {
                                   activeColor: Colors.white,
                                   checkColor: Color(0xFF6E33D1),
                                 ),
-                                const Text('Remember me',
-                                    style: TextStyle(color: Colors.white70)),
+                                Text(S.current.rem_me,
+                                    style:
+                                        const TextStyle(color: Colors.white70)),
                               ],
                             ),
                             TextButton(
                               onPressed: () {},
-                              child: const Text('Forgot password?',
-                                  style: TextStyle(color: Colors.white)),
+                              child: Text(S.current.forgot_password,
+                                  style: const TextStyle(color: Colors.white)),
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 24),
-                        // ───────── SIGN IN BUTTON ─────────
                         BlocBuilder<SignInCubit, SignInState>(
                           buildWhen: (prev, curr) {
                             if (curr.signInModel != null) {
@@ -157,8 +154,8 @@ class _SignInPageState extends State<SignInPage> {
                                     ? const CircularProgressIndicator.adaptive(
                                         valueColor: AlwaysStoppedAnimation(
                                             Colors.white))
-                                    : const Text('Sign In →',
-                                        style: TextStyle(
+                                    : Text(S.current.btn_sign_in,
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -166,9 +163,7 @@ class _SignInPageState extends State<SignInPage> {
                             );
                           },
                         ),
-
                         const SizedBox(height: 24),
-                        // ───────── SOCIAL LOGINS ─────────
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -191,14 +186,12 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 16),
-                        // ───────── BACK TO SIGN UP ─────────
                         TextButton(
                           onPressed: () => context.go('/signup'),
-                          child: const Text(
-                            "Don't have an account + Create an account",
-                            style: TextStyle(color: Colors.white70),
+                          child: Text(
+                            S.current.dont_acc,
+                            style: const TextStyle(color: Colors.white70),
                           ),
                         ),
                       ],

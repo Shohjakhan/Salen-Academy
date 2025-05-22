@@ -28,7 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState!.validate()) {
       if (passwordController.text != confirmPasswordController.text) {
         setState(() {
-          errorMessage = 'Passwords do not match!';
+          errorMessage = S.current.error_password;
         });
       } else {
         setState(() {
@@ -65,18 +65,18 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   Icon(Icons.person_add, size: 48, color: Colors.white),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Join Salen Academy',
-                    style: TextStyle(
+                  Text(
+                    S.current.join_text,
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Create your account to get started',
-                    style: TextStyle(
+                  Text(
+                    S.current.create_account,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white70,
                     ),
@@ -90,8 +90,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           controller: fullNameController,
                           labelText: S.current.field_username,
                           validator: (value) {
-                            if (value == null || value.isEmpty)
-                              return S.current.field_username_text;
+                            if (value == null || value.isEmpty) {
+                              return S.current.error_msg_username;
+                            }
                             return null;
                           },
                         ),
@@ -100,17 +101,20 @@ class _SignUpPageState extends State<SignUpPage> {
                           controller: emailController,
                           labelText: S.current.field_email,
                           validator: (value) {
-                            if (value == null || value.isEmpty)
-                              return S.current.field_email_text;
-                            if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value))
-                              return 'Please enter a valid email';
+                            if (value == null || value.isEmpty) {
+                              return S.current.error_msg_email;
+                            }
+                            if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                .hasMatch(value)) {
+                              return S.current.error_msg_email_2;
+                            }
                             return null;
                           },
                         ),
                         const SizedBox(height: 16),
                         _buildTextField(
                           controller: passwordController,
-                          labelText: 'Password',
+                          labelText: S.current.field_password,
                           obscureText: !_isPasswordVisible,
                           suffixIcon: _isPasswordVisible
                               ? Icons.visibility
@@ -118,17 +122,19 @@ class _SignUpPageState extends State<SignUpPage> {
                           onSuffixIconPressed: () => setState(
                               () => _isPasswordVisible = !_isPasswordVisible),
                           validator: (value) {
-                            if (value == null || value.isEmpty)
-                              return 'Please enter your password';
-                            if (value.length < 6)
-                              return 'Password must be at least 6 characters';
+                            if (value == null || value.isEmpty) {
+                              return S.current.error_msg_password;
+                            }
+                            if (value.length < 6) {
+                              return S.current.error_msg_password_2;
+                            }
                             return null;
                           },
                         ),
                         const SizedBox(height: 16),
                         _buildTextField(
                           controller: confirmPasswordController,
-                          labelText: 'Confirm Password',
+                          labelText: S.current.field_cpassword,
                           obscureText: !_isConfirmPasswordVisible,
                           suffixIcon: _isConfirmPasswordVisible
                               ? Icons.visibility
@@ -137,8 +143,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               _isConfirmPasswordVisible =
                                   !_isConfirmPasswordVisible),
                           validator: (value) {
-                            if (value == null || value.isEmpty)
-                              return 'Please confirm your password';
+                            if (value == null || value.isEmpty) {
+                              return S.current.error_msg_cpassword;
+                            }
                             return null;
                           },
                         ),
@@ -184,7 +191,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         valueColor: AlwaysStoppedAnimation(
                                             Colors.white))
                                     : Text(
-                                        'Create Account →',
+                                        S.current.btn_create_acc,
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.white,
@@ -221,7 +228,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         TextButton(
                           onPressed: () => context.go('/signin'),
                           child: Text(
-                            '← Already have an account',
+                            S.current.alr_acc,
                             style: TextStyle(color: Colors.white70),
                           ),
                         ),

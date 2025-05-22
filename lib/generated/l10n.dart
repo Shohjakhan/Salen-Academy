@@ -28,9 +28,10 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -54,131 +55,161 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `AI orqali darslik tayyorlash`
-  String get btn_ai_tutorial_generator {
+  /// `← Mavjud hisobga kirish`
+  String get alr_acc {
     return Intl.message(
-      'AI orqali darslik tayyorlash',
-      name: 'btn_ai_tutorial_generator',
+      '← Mavjud hisobga kirish',
+      name: 'alr_acc',
       desc: '',
       args: [],
     );
   }
 
-  /// `Profil rasmini o'zgartirish`
-  String get btn_change_pic {
+  /// `Hisob yaratish →`
+  String get btn_create_acc {
     return Intl.message(
-      'Profil rasmini o\'zgartirish',
-      name: 'btn_change_pic',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Darsliklarni yaratish`
-  String get btn_generate_tutorials {
-    return Intl.message(
-      'Darsliklarni yaratish',
-      name: 'btn_generate_tutorials',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `O'zgarishlarni saqlash`
-  String get btn_save_changes {
-    return Intl.message(
-      'O\'zgarishlarni saqlash',
-      name: 'btn_save_changes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Tizimga kirish`
-  String get btn_sign_in_2 {
-    return Intl.message(
-      'Tizimga kirish',
-      name: 'btn_sign_in_2',
+      'Hisob yaratish →',
+      name: 'btn_create_acc',
       desc: '',
       args: [],
     );
   }
 
   /// `Ro'yxatdan o'tish`
-  String get btn_sign_up {
-    return Intl.message(
-      'Ro`yxatdan o`tish',
-      name: 'btn_sign_up',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ro'yxatdan o'tish`
-  String get btn_sign_up_2 {
+  String get btn_get_started {
     return Intl.message(
       'Ro\'yxatdan o\'tish',
-      name: 'btn_sign_up_2',
+      name: 'btn_get_started',
       desc: '',
       args: [],
     );
   }
 
-  /// `Tizimga kirish`
-  String get btn_sing_in {
+  /// `Kirish`
+  String get btn_log_in {
+    return Intl.message('Kirish', name: 'btn_log_in', desc: '', args: []);
+  }
+
+  /// `Hisobdan chiqish`
+  String get btn_log_out {
     return Intl.message(
-      'Tizimga kirish',
-      name: 'btn_sing_in',
+      'Hisobdan chiqish',
+      name: 'btn_log_out',
       desc: '',
       args: [],
     );
   }
 
-  /// `Profil rasmini o'zgartirish`
-  String get change_pic {
+  /// `Yangi chat`
+  String get btn_new_chat {
+    return Intl.message('Yangi chat', name: 'btn_new_chat', desc: '', args: []);
+  }
+
+  /// `Hisobga kirish →`
+  String get btn_sign_in {
     return Intl.message(
-      'Profil rasmini o\'zgartirish',
-      name: 'change_pic',
+      'Hisobga kirish →',
+      name: 'btn_sign_in',
       desc: '',
       args: [],
     );
   }
 
-  /// `Darslik tarixi`
-  String get chat_history {
+  /// `Boshlash uchun hisobingizni yarating`
+  String get create_account {
     return Intl.message(
-      'Darslik tarixi',
-      name: 'chat_history',
+      'Boshlash uchun hisobingizni yarating',
+      name: 'create_account',
       desc: '',
       args: [],
     );
   }
 
-  /// `Profil rasmini o'zgartirish`
-  String get edit_profile {
+  /// `Hisobin mavjud emas +`
+  String get dont_acc {
     return Intl.message(
-      'Profil rasmini o\'zgartirish',
-      name: 'edit_profile',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Confirm Password`
-  String get field_confirm_password {
-    return Intl.message(
-      'Confirm Password',
-      name: 'field_confirm_password',
+      'Hisobin mavjud emas +',
+      name: 'dont_acc',
       desc: '',
       args: [],
     );
   }
 
   /// `Parolingizni tasdiqlang`
-  String get field_confirm_password_text {
+  String get error_msg_cpassword {
     return Intl.message(
       'Parolingizni tasdiqlang',
-      name: 'field_confirm_password_text',
+      name: 'error_msg_cpassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Iltimos, elektron pochtangizni kiriting`
+  String get error_msg_email {
+    return Intl.message(
+      'Iltimos, elektron pochtangizni kiriting',
+      name: 'error_msg_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yaroqli elektron pochta manzilini kiriting`
+  String get error_msg_email_2 {
+    return Intl.message(
+      'Yaroqli elektron pochta manzilini kiriting',
+      name: 'error_msg_email_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Iltimos, parolingizni kiriting`
+  String get error_msg_password {
+    return Intl.message(
+      'Iltimos, parolingizni kiriting',
+      name: 'error_msg_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parol kamida 6 ta belgidan iborat bo'lishi kerak`
+  String get error_msg_password_2 {
+    return Intl.message(
+      'Parol kamida 6 ta belgidan iborat bo\'lishi kerak',
+      name: 'error_msg_password_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Iltimos, foydalanuvchi nomingizni kiriting`
+  String get error_msg_username {
+    return Intl.message(
+      'Iltimos, foydalanuvchi nomingizni kiriting',
+      name: 'error_msg_username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parollar mos kelmaydi!`
+  String get error_password {
+    return Intl.message(
+      'Parollar mos kelmaydi!',
+      name: 'error_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parolni tasdiqlang`
+  String get field_cpassword {
+    return Intl.message(
+      'Parolni tasdiqlang',
+      name: 'field_cpassword',
       desc: '',
       args: [],
     );
@@ -194,11 +225,11 @@ class S {
     );
   }
 
-  /// `Yaroqli elektron pochta manzilini kiriting`
-  String get field_email_text {
+  /// `Yangi parol`
+  String get field_npassword {
     return Intl.message(
-      'Yaroqli elektron pochta manzilini kiriting',
-      name: 'field_email_text',
+      'Yangi parol',
+      name: 'field_npassword',
       desc: '',
       args: [],
     );
@@ -209,36 +240,11 @@ class S {
     return Intl.message('Parol', name: 'field_password', desc: '', args: []);
   }
 
-  /// `Parol`
-  String get field_password_2 {
-    return Intl.message('Parol', name: 'field_password_2', desc: '', args: []);
-  }
-
-  /// `Iltimos, parolingizni kiriting`
-  String get field_password_2_text {
+  /// `Soʻrovingizni shu yerga kiriting...`
+  String get field_promt {
     return Intl.message(
-      'Iltimos, parolingizni kiriting',
-      name: 'field_password_2_text',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Iltimos, parolingizni kiriting`
-  String get field_password_text {
-    return Intl.message(
-      'Iltimos, parolingizni kiriting',
-      name: 'field_password_text',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Parol kamida 6 ta belgidan iborat bo'lishi kerak`
-  String get field_password_text_2 {
-    return Intl.message(
-      'Parol kamida 6 ta belgidan iborat bo\'lishi kerak',
-      name: 'field_password_text_2',
+      'Soʻrovingizni shu yerga kiriting...',
+      name: 'field_promt',
       desc: '',
       args: [],
     );
@@ -254,182 +260,130 @@ class S {
     );
   }
 
-  /// `Foydalanuvchi nomi`
-  String get field_username_2 {
+  /// `Parolni unutdingizmi?`
+  String get forgot_password {
     return Intl.message(
-      'Foydalanuvchi nomi',
-      name: 'field_username_2',
+      'Parolni unutdingizmi?',
+      name: 'forgot_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Пожалуйста, введите ваше имя пользователя`
-  String get field_username_2_text {
+  /// `Salen Academyga qo'shiling`
+  String get join_text {
     return Intl.message(
-      'Пожалуйста, введите ваше имя пользователя',
-      name: 'field_username_2_text',
+      'Salen Academyga qo\'shiling',
+      name: 'join_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `Iltimos, foydalanuvchi nomingizni kiriting`
-  String get field_username_text {
+  /// `Matematika masalalarimi?`
+  String get main_screen_text {
     return Intl.message(
-      'Iltimos, foydalanuvchi nomingizni kiriting',
-      name: 'field_username_text',
+      'Matematika masalalarimi?',
+      name: 'main_screen_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `To'liq ism`
-  String get full_name {
-    return Intl.message('To\'liq ism', name: 'full_name', desc: '', args: []);
-  }
-
-  /// `Darsliklarni yaratish`
-  String get hint_generate_tutorials {
+  /// `Murakkab muammolarga bosqichma-bosqich yechim oling`
+  String get main_screen_text_2 {
     return Intl.message(
-      'Darsliklarni yaratish',
-      name: 'hint_generate_tutorials',
+      'Murakkab muammolarga bosqichma-bosqich yechim oling',
+      name: 'main_screen_text_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ko'rildi`
-  String get history_info {
-    return Intl.message('Ko\'rildi', name: 'history_info', desc: '', args: []);
-  }
-
-  /// `rasm`
-  String get image {
-    return Intl.message('rasm', name: 'image', desc: '', args: []);
-  }
-
-  /// `uz`
-  String get language {
-    return Intl.message('uz', name: 'language', desc: '', args: []);
-  }
-
-  /// `Hisobdan chiqish`
-  String get log_out {
+  /// `Tez kunlarda...`
+  String get msg_tutorial {
     return Intl.message(
-      'Hisobdan chiqish',
-      name: 'log_out',
+      'Tez kunlarda...',
+      name: 'msg_tutorial',
       desc: '',
       args: [],
     );
   }
 
-  /// `Assalomu alaykum, bugun nimani oʻrganmoqchisiz?\nOʻquv qoʻllanmalarini yaratib koʻring yoki ularni qidiring.`
-  String get main_text {
+  /// `Profil sahifasi`
+  String get profile_page {
     return Intl.message(
-      'Assalomu alaykum, bugun nimani oʻrganmoqchisiz?\nOʻquv qoʻllanmalarini yaratib koʻring yoki ularni qidiring.',
-      name: 'main_text',
+      'Profil sahifasi',
+      name: 'profile_page',
       desc: '',
       args: [],
     );
   }
 
-  /// `Tomosha tarixi yo'q`
-  String get no_history {
+  /// `Meni eslab qol`
+  String get rem_me {
+    return Intl.message('Meni eslab qol', name: 'rem_me', desc: '', args: []);
+  }
+
+  /// `Hisobingizga kiring`
+  String get sign_in_text {
     return Intl.message(
-      'Tomosha tarixi yo\'q',
-      name: 'no_history',
+      'Hisobingizga kiring',
+      name: 'sign_in_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `Profil`
-  String get profile_header {
-    return Intl.message('Profil', name: 'profile_header', desc: '', args: []);
-  }
-
-  /// `Foydalanuvchi nomi`
-  String get profile_username {
+  /// `AI matematik masalalarni yechish`
+  String get title_generator {
     return Intl.message(
-      'Foydalanuvchi nomi',
-      name: 'profile_username',
+      'AI matematik masalalarni yechish',
+      name: 'title_generator',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hisobingizga kirish uchun quyidagi ma'lumotlarni to'ldiring.`
-  String get sign_in_info {
+  /// `Video darslik`
+  String get video_tutorial {
     return Intl.message(
-      'Hisobingizga kirish uchun quyidagi ma\'lumotlarni to\'ldiring.',
-      name: 'sign_in_info',
+      'Video darslik',
+      name: 'video_tutorial',
       desc: '',
       args: [],
     );
   }
 
-  /// `Bizning o'quv hamjamiyatimizga qo'shiling va o'z potentsialingizni oching!`
-  String get sign_up_text {
-    return Intl.message(
-      'Bizning o\'quv hamjamiyatimizga qo\'shiling va o\'z potentsialingizni oching!',
-      name: 'sign_up_text',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `O'zingizning videolaringizni yarating`
-  String get text_generate_videos {
-    return Intl.message(
-      'O`zingizning videolaringizni yarating',
-      name: 'text_generate_videos',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `O'zbekcha`
-  String get title_language {
-    return Intl.message(
-      'O`zbekcha',
-      name: 'title_language',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Qaytib kelganingizdan xursandmiz`
+  /// `Qaytganingiz bilan`
   String get welcome_back {
     return Intl.message(
-      'Qaytib kelganingizdan xursandmiz',
+      'Qaytganingiz bilan',
       name: 'welcome_back',
       desc: '',
       args: [],
     );
   }
 
-  /// `Har qanday mavzuni o'rganishning eng yaxshi va eng samarali usuli.`
+  /// `Ta'limingizni o'zgartirishga tayyormisiz?`
   String get welcome_text {
     return Intl.message(
-      'Har qanday mavzuni o`rganishning eng yaxshi va eng samarali usuli.',
+      'Ta\'limingizni o\'zgartirishga tayyormisiz?',
       name: 'welcome_text',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hisobingizni yarating`
+  /// `Salen Academy bilan aqlliroq o'rganayotgan minglab talabalarga qo'shiling.`
   String get welcome_text_2 {
     return Intl.message(
-      'Hisobingizni yarating',
+      'Salen Academy bilan aqlliroq o\'rganayotgan minglab talabalarga qo\'shiling.',
       name: 'welcome_text_2',
       desc: '',
       args: [],
     );
   }
-
-  String? get welcome_text_3 => null;
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

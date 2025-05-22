@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
@@ -32,7 +31,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             SizedBox(height: 5),
             Text(
-              'Ready to Transform Your Learning?',
+              S.current.welcome_text,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 24,
@@ -41,7 +40,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             SizedBox(height: 5),
             Text(
-              'Join thousands of students who are learning smarter with Salen Academy.',
+              S.current.welcome_text_2,
               maxLines: 3,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
@@ -60,7 +59,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         colors: [Color(0xFF4e57f6), Color(0xFFe66465)])),
                 child: Center(
                   child: Text(
-                    S.current.btn_sign_up,
+                    S.current.btn_get_started,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -84,7 +83,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 child: Center(
                   child: Text(
-                    S.current.btn_sing_in,
+                    S.current.btn_log_in,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

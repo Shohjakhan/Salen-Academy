@@ -22,98 +22,78 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "btn_ai_tutorial_generator": MessageLookupByLibrary.simpleMessage(
-      "AI orqali darslik tayyorlash",
-    ),
-    "btn_change_pic": MessageLookupByLibrary.simpleMessage(
-      "Profil rasmini o\'zgartirish",
-    ),
-    "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
-      "Darsliklarni yaratish",
-    ),
-    "btn_save_changes": MessageLookupByLibrary.simpleMessage(
-      "O\'zgarishlarni saqlash",
-    ),
-    "btn_sign_in_2": MessageLookupByLibrary.simpleMessage("Tizimga kirish"),
-    "btn_sign_up": MessageLookupByLibrary.simpleMessage("Ro`yxatdan o`tish"),
-    "btn_sign_up_2": MessageLookupByLibrary.simpleMessage(
+    "alr_acc": MessageLookupByLibrary.simpleMessage("← Mavjud hisobga kirish"),
+    "btn_create_acc": MessageLookupByLibrary.simpleMessage("Hisob yaratish →"),
+    "btn_get_started": MessageLookupByLibrary.simpleMessage(
       "Ro\'yxatdan o\'tish",
     ),
-    "btn_sing_in": MessageLookupByLibrary.simpleMessage("Tizimga kirish"),
-    "change_pic": MessageLookupByLibrary.simpleMessage(
-      "Profil rasmini o\'zgartirish",
+    "btn_log_in": MessageLookupByLibrary.simpleMessage("Kirish"),
+    "btn_log_out": MessageLookupByLibrary.simpleMessage("Hisobdan chiqish"),
+    "btn_new_chat": MessageLookupByLibrary.simpleMessage("Yangi chat"),
+    "btn_sign_in": MessageLookupByLibrary.simpleMessage("Hisobga kirish →"),
+    "create_account": MessageLookupByLibrary.simpleMessage(
+      "Boshlash uchun hisobingizni yarating",
     ),
-    "chat_history": MessageLookupByLibrary.simpleMessage("Darslik tarixi"),
-    "edit_profile": MessageLookupByLibrary.simpleMessage(
-      "Profil rasmini o\'zgartirish",
-    ),
-    "field_confirm_password": MessageLookupByLibrary.simpleMessage(
-      "Confirm Password",
-    ),
-    "field_confirm_password_text": MessageLookupByLibrary.simpleMessage(
+    "dont_acc": MessageLookupByLibrary.simpleMessage("Hisobin mavjud emas +"),
+    "error_msg_cpassword": MessageLookupByLibrary.simpleMessage(
       "Parolingizni tasdiqlang",
     ),
-    "field_email": MessageLookupByLibrary.simpleMessage("Elektron pochta"),
-    "field_email_text": MessageLookupByLibrary.simpleMessage(
+    "error_msg_email": MessageLookupByLibrary.simpleMessage(
+      "Iltimos, elektron pochtangizni kiriting",
+    ),
+    "error_msg_email_2": MessageLookupByLibrary.simpleMessage(
       "Yaroqli elektron pochta manzilini kiriting",
     ),
-    "field_password": MessageLookupByLibrary.simpleMessage("Parol"),
-    "field_password_2": MessageLookupByLibrary.simpleMessage("Parol"),
-    "field_password_2_text": MessageLookupByLibrary.simpleMessage(
+    "error_msg_password": MessageLookupByLibrary.simpleMessage(
       "Iltimos, parolingizni kiriting",
     ),
-    "field_password_text": MessageLookupByLibrary.simpleMessage(
-      "Iltimos, parolingizni kiriting",
-    ),
-    "field_password_text_2": MessageLookupByLibrary.simpleMessage(
+    "error_msg_password_2": MessageLookupByLibrary.simpleMessage(
       "Parol kamida 6 ta belgidan iborat bo\'lishi kerak",
+    ),
+    "error_msg_username": MessageLookupByLibrary.simpleMessage(
+      "Iltimos, foydalanuvchi nomingizni kiriting",
+    ),
+    "error_password": MessageLookupByLibrary.simpleMessage(
+      "Parollar mos kelmaydi!",
+    ),
+    "field_cpassword": MessageLookupByLibrary.simpleMessage(
+      "Parolni tasdiqlang",
+    ),
+    "field_email": MessageLookupByLibrary.simpleMessage("Elektron pochta"),
+    "field_npassword": MessageLookupByLibrary.simpleMessage("Yangi parol"),
+    "field_password": MessageLookupByLibrary.simpleMessage("Parol"),
+    "field_promt": MessageLookupByLibrary.simpleMessage(
+      "Soʻrovingizni shu yerga kiriting...",
     ),
     "field_username": MessageLookupByLibrary.simpleMessage(
       "Foydalanuvchi nomi",
     ),
-    "field_username_2": MessageLookupByLibrary.simpleMessage(
-      "Foydalanuvchi nomi",
+    "forgot_password": MessageLookupByLibrary.simpleMessage(
+      "Parolni unutdingizmi?",
     ),
-    "field_username_2_text": MessageLookupByLibrary.simpleMessage(
-      "Пожалуйста, введите ваше имя пользователя",
+    "join_text": MessageLookupByLibrary.simpleMessage(
+      "Salen Academyga qo\'shiling",
     ),
-    "field_username_text": MessageLookupByLibrary.simpleMessage(
-      "Iltimos, foydalanuvchi nomingizni kiriting",
+    "main_screen_text": MessageLookupByLibrary.simpleMessage(
+      "Matematika masalalarimi?",
     ),
-    "full_name": MessageLookupByLibrary.simpleMessage("To\'liq ism"),
-    "hint_generate_tutorials": MessageLookupByLibrary.simpleMessage(
-      "Darsliklarni yaratish",
+    "main_screen_text_2": MessageLookupByLibrary.simpleMessage(
+      "Murakkab muammolarga bosqichma-bosqich yechim oling",
     ),
-    "history_info": MessageLookupByLibrary.simpleMessage("Ko\'rildi"),
-    "image": MessageLookupByLibrary.simpleMessage("rasm"),
-    "language": MessageLookupByLibrary.simpleMessage("uz"),
-    "log_out": MessageLookupByLibrary.simpleMessage("Hisobdan chiqish"),
-    "main_text": MessageLookupByLibrary.simpleMessage(
-      "Assalomu alaykum, bugun nimani oʻrganmoqchisiz?\nOʻquv qoʻllanmalarini yaratib koʻring yoki ularni qidiring.",
+    "msg_tutorial": MessageLookupByLibrary.simpleMessage("Tez kunlarda..."),
+    "profile_page": MessageLookupByLibrary.simpleMessage("Profil sahifasi"),
+    "rem_me": MessageLookupByLibrary.simpleMessage("Meni eslab qol"),
+    "sign_in_text": MessageLookupByLibrary.simpleMessage("Hisobingizga kiring"),
+    "title_generator": MessageLookupByLibrary.simpleMessage(
+      "AI matematik masalalarni yechish",
     ),
-    "no_history": MessageLookupByLibrary.simpleMessage("Tomosha tarixi yo\'q"),
-    "profile_header": MessageLookupByLibrary.simpleMessage("Profil"),
-    "profile_username": MessageLookupByLibrary.simpleMessage(
-      "Foydalanuvchi nomi",
-    ),
-    "sign_in_info": MessageLookupByLibrary.simpleMessage(
-      "Hisobingizga kirish uchun quyidagi ma\'lumotlarni to\'ldiring.",
-    ),
-    "sign_up_text": MessageLookupByLibrary.simpleMessage(
-      "Bizning o\'quv hamjamiyatimizga qo\'shiling va o\'z potentsialingizni oching!",
-    ),
-    "text_generate_videos": MessageLookupByLibrary.simpleMessage(
-      "O`zingizning videolaringizni yarating",
-    ),
-    "title_language": MessageLookupByLibrary.simpleMessage("O`zbekcha"),
-    "welcome_back": MessageLookupByLibrary.simpleMessage(
-      "Qaytib kelganingizdan xursandmiz",
-    ),
+    "video_tutorial": MessageLookupByLibrary.simpleMessage("Video darslik"),
+    "welcome_back": MessageLookupByLibrary.simpleMessage("Qaytganingiz bilan"),
     "welcome_text": MessageLookupByLibrary.simpleMessage(
-      "Har qanday mavzuni o`rganishning eng yaxshi va eng samarali usuli.",
+      "Ta\'limingizni o\'zgartirishga tayyormisiz?",
     ),
     "welcome_text_2": MessageLookupByLibrary.simpleMessage(
-      "Hisobingizni yarating",
+      "Salen Academy bilan aqlliroq o\'rganayotgan minglab talabalarga qo\'shiling.",
     ),
   };
 }

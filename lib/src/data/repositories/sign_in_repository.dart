@@ -30,7 +30,11 @@ abstract class SignInRepository {
         message: e.body['non_field_errors'][0],
       );
     } catch (e) {
-      throw ErrorModel(errorId: 0, isFriendly: false, message: e.toString());
+      throw ErrorModel(
+        errorId: 0,
+        isFriendly: false,
+        message: e.toString(),
+      );
     }
   }
 }
