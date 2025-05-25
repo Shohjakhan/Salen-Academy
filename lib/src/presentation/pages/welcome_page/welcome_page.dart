@@ -25,19 +25,22 @@ class _WelcomePageState extends State<WelcomePage> {
           children: [
             Center(
               child: Image.asset(
-                'assets/images/welcome_image.png',
-                width: 250,
+                'assets/images/logo_updated.png',
+                width: 200,
               ),
             ),
-            SizedBox(height: 20),
-            Text(
-              'Salen Academy',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
+            SizedBox(height: 5),
             Text(
               S.current.welcome_text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 0, 58, 158)),
+            ),
+            SizedBox(height: 5),
+            Text(
+              S.current.welcome_text_2,
               maxLines: 3,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
@@ -51,12 +54,12 @@ class _WelcomePageState extends State<WelcomePage> {
                 width: double.infinity,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xFFff9700),
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                        colors: [Color(0xFF4e57f6), Color(0xFFe66465)])),
                 child: Center(
                   child: Text(
-                    S.current.btn_sign_up,
+                    S.current.btn_get_started,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -80,7 +83,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 child: Center(
                   child: Text(
-                    S.current.btn_sing_in,
+                    S.current.btn_log_in,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -92,10 +95,7 @@ class _WelcomePageState extends State<WelcomePage> {
             SizedBox(height: 20),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
+                context.pushNamed(HomePage.routeName);
               },
               child: Container(
                 width: double.infinity,

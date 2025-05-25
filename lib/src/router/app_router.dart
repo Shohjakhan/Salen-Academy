@@ -1,11 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:salen_academy/injector_container.dart';
 import 'package:salen_academy/src/domain/sign_up_cubit/sign_up_cubit.dart';
+import 'package:salen_academy/src/domain/sing_in_cubit/sign_in_cubit.dart';
+import 'package:salen_academy/src/domain/video_cubit/video_cubit.dart';
 import 'package:salen_academy/src/presentation/pages/home_page/home_page.dart';
-import 'package:salen_academy/src/presentation/pages/profile_page/profile_page.dart';
 import 'package:salen_academy/src/presentation/pages/sign_up/sing_up_page.dart';
-import 'package:salen_academy/src/presentation/pages/video_page/video_page.dart';
-import 'package:salen_academy/src/presentation/pages/chat_history/chat_history.dart';
+import 'package:salen_academy/src/presentation/pages/home_page/screens/video_page/video_page.dart';
 
 import '../presentation/pages/sign_in/sign_in_page.dart';
 import '../presentation/pages/splash_page/splash_page.dart';
@@ -39,28 +40,27 @@ abstract class AppRouter {
       GoRoute(
         name: SignInPage.routeName,
         path: '/signin',
-        builder: (context, state) => const SignInPage(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => SignInCubit()),
+          ],
+          child: const SignInPage(),
+        ),
       ),
       GoRoute(
-          name: HomePage.routeName,
-          path: '/home',
-          builder: (context, state) => const HomePage(),
-          routes: [
-            GoRoute(
-              name: ProfilePage.routeName,
-              path: 'profile',
-              builder: (context, state) => ProfilePage(),
-            ),
-          ]),
+        name: HomePage.routeName,
+        path: '/home',
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: sl<VideoCubit>()),
+          ],
+          child: const HomePage(),
+        ),
+      ),
       GoRoute(
         name: VideoPage.routeName,
         path: '/video',
-        builder: (context, state) => const VideoPage(),
-      ),
-      GoRoute(
-        name: HistoryPage.routeName,
-        path: '/history',
-        builder: (context, state) => HistoryPage(),
+        builder: (context, state) => VideoPage(),
       ),
     ],
   );

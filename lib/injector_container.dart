@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:salen_academy/src/domain/video_cubit/video_cubit.dart';
 import 'src/services/api_client/http/http_service.dart';
 import 'src/data/resources/local/isar_db/isar_db.dart';
 import 'src/data/resources/local/local_storage.dart';
@@ -9,9 +10,12 @@ final sl = GetIt.instance;
 Future<void> getItInit() async {
   final ApiClient baseClient = ApiClient(
     apiService: HttpService(),
-    //TODO: ENV file
+    //TODO: ENV file create
     baseUrl: "https://salenacademy.com/api",
   );
+
   sl.registerLazySingleton(() => baseClient);
   sl.registerSingleton<LocalStorage>(IsarDB());
+
+  sl.registerLazySingleton(() => VideoCubit());
 }

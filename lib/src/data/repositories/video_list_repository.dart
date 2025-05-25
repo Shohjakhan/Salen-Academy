@@ -2,28 +2,19 @@ import 'dart:convert';
 
 import '../../../injector_container.dart';
 import '../models/error_model.dart';
-import '../models/generated_video_model.dart';
+import '../models/video_list_model.dart';
 import '../resources/remote/api_client.dart';
 import '../resources/remote/api_exceptions/api_exceptions.dart';
 
-abstract class GenerateVideoRepository {
-  static Future<dynamic> getVideo({
-    required String topic,
-    required String quality,
-    required String langCode,
-  }) async {
+abstract class VideoListRepository {
+  static Future<dynamic> getVideos() async {
     try {
       final data = await sl<ApiClient>().request(
-        '/generate/',
-        method: 'POST',
-        body: {
-          'prompt': topic,
-          'quality': quality,
-          'language': langCode,
-        },
+        '/list_videos/',
+        method: 'GET',
       );
 
-      return generatedVideoModelFromJson(jsonEncode(data));
+      return videosFromJson(jsonEncode(data['list']));
     } on ApiException catch (e) {
       throw ErrorModel.fromJson(e.body['error']);
     } catch (e) {

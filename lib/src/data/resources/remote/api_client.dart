@@ -1,4 +1,5 @@
 import '../../../services/api_client/impl/api_service.dart';
+import '../../repositories/local_data_repository.dart';
 import 'api_exceptions/api_exceptions.dart';
 
 class ApiClient {
@@ -12,11 +13,11 @@ class ApiClient {
 
   Map<String, String> _getHeaders(Map<String, String>? header) {
     final requestHeader = header ?? {};
-    // final accessToken = LocalDataRepository.getAccessTokenSync();
+    final accessToken = LocalDataRepository.getAccessTokenSync();
 
-    // if (accessToken.isNotEmpty) {
-    //   requestHeader.addAll({'Authorization': 'Bearer $accessToken'});
-    // }
+    if (accessToken.isNotEmpty) {
+      requestHeader.addAll({'Authorization': 'Token $accessToken'});
+    }
 
     requestHeader.addAll({
       'Content-Type': 'application/json; charset=UTF-8',

@@ -20,5 +20,25 @@ abstract class LocalDataRepository {
     sl<LocalStorage>().setSync(_kLanguageCode, value);
   }
 
-  static Future<void> logout() async {}
+  ///Language code
+  static const _kAccessToken = 'ACCESS_TOKEN';
+  static Future<String> getAccessToken() async {
+    return await sl<LocalStorage>().get(_kAccessToken) ?? '';
+  }
+
+  static Future<void> setAccessToken(dynamic value) async {
+    await sl<LocalStorage>().set(_kAccessToken, value);
+  }
+
+  static String getAccessTokenSync() {
+    return sl<LocalStorage>().getSync(_kAccessToken) ?? '';
+  }
+
+  static void setAccessTokenSync(dynamic value) {
+    sl<LocalStorage>().setSync(_kAccessToken, value);
+  }
+
+  static Future<void> logout() async {
+    await setAccessToken('');
+  }
 }

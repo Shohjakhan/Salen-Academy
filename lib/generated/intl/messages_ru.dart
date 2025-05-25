@@ -22,27 +22,83 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "btn_ai_tutorial_generator": MessageLookupByLibrary.simpleMessage(
-      "Подготовка учебников с помощью ИИ",
-    ),
-    "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
-      "Создавайте собственные видео",
-    ),
-    "btn_sign_up": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
-    "btn_sing_in": MessageLookupByLibrary.simpleMessage("Войти"),
-    "hint_generate_tutorials": MessageLookupByLibrary.simpleMessage(
-      "Создать обучающие материалы",
-    ),
-    "language": MessageLookupByLibrary.simpleMessage("ru"),
-    "main_text": MessageLookupByLibrary.simpleMessage(
-      "Привет, чему ты хочешь научиться сегодня?\nПопробуйте создать обучающие материалы или поискать их.",
-    ),
-    "text_generate_videos": MessageLookupByLibrary.simpleMessage(
-      "Создавайте собственные видео",
-    ),
-    "title_language": MessageLookupByLibrary.simpleMessage("Русский"),
-    "welcome_text": MessageLookupByLibrary.simpleMessage(
-      "Лучший и наиболее эффективный способ изучения любого предмета.",
-    ),
-  };
+        "alr_acc":
+            MessageLookupByLibrary.simpleMessage("← У вас уже есть аккаунт"),
+        "btn_create_acc": MessageLookupByLibrary.simpleMessage(
+          "Зарегистрироваться →",
+        ),
+        "btn_get_started": MessageLookupByLibrary.simpleMessage("Начать"),
+        "btn_log_in": MessageLookupByLibrary.simpleMessage("Авторизоваться"),
+        "btn_log_out": MessageLookupByLibrary.simpleMessage("Выйти"),
+        "btn_new_chat": MessageLookupByLibrary.simpleMessage("Новый чат"),
+        "btn_sign_in": MessageLookupByLibrary.simpleMessage("Войти →"),
+        "create_account": MessageLookupByLibrary.simpleMessage(
+          "Создайте свою учетную запись, чтобы начать",
+        ),
+        "dont_acc":
+            MessageLookupByLibrary.simpleMessage("Нет учетной записи + "),
+        "error_msg_cpassword": MessageLookupByLibrary.simpleMessage(
+          "Пожалуйста, подтвердите свой пароль",
+        ),
+        "error_msg_email": MessageLookupByLibrary.simpleMessage(
+          "Пожалуйста, введите свой адрес электронной почты",
+        ),
+        "error_msg_email_2": MessageLookupByLibrary.simpleMessage(
+          "Пожалуйста, введите действительный адрес электронной почты",
+        ),
+        "error_msg_password": MessageLookupByLibrary.simpleMessage(
+          "Пожалуйста, введите ваш пароль",
+        ),
+        "error_msg_password_2": MessageLookupByLibrary.simpleMessage(
+          "Пароль должен содержать не менее 6 символов.",
+        ),
+        "error_msg_username": MessageLookupByLibrary.simpleMessage(
+          "Пожалуйста, введите ваше имя пользователя",
+        ),
+        "error_password": MessageLookupByLibrary.simpleMessage(
+          "Пароли не совпадают!",
+        ),
+        "field_cpassword": MessageLookupByLibrary.simpleMessage(
+          "Подтвердите пароль",
+        ),
+        "field_email":
+            MessageLookupByLibrary.simpleMessage("Электронная почта"),
+        "field_npassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
+        "field_password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "field_promt": MessageLookupByLibrary.simpleMessage(
+          "Введите запрос здесь...",
+        ),
+        "field_username":
+            MessageLookupByLibrary.simpleMessage("Имя пользователя"),
+        "forgot_password":
+            MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
+        "join_text": MessageLookupByLibrary.simpleMessage(
+          "Присоединяйтесь к Salen Academy",
+        ),
+        "main_screen_text": MessageLookupByLibrary.simpleMessage(
+          "Математические проблемы?",
+        ),
+        "main_screen_text_2": MessageLookupByLibrary.simpleMessage(
+          "Получите пошаговые решения сложных уравнений",
+        ),
+        "msg_tutorial": MessageLookupByLibrary.simpleMessage("Вскоре..."),
+        "profile_page":
+            MessageLookupByLibrary.simpleMessage("Страница профиля"),
+        "rem_me": MessageLookupByLibrary.simpleMessage("Запомнить меня"),
+        "sign_in_text": MessageLookupByLibrary.simpleMessage(
+          "Войдите в свою учетную запись",
+        ),
+        "title_generator": MessageLookupByLibrary.simpleMessage(
+          "Решатель математических задач на AI",
+        ),
+        "video_tutorial": MessageLookupByLibrary.simpleMessage("Видеоурок"),
+        "welcome_back":
+            MessageLookupByLibrary.simpleMessage("Добро пожаловать"),
+        "welcome_text": MessageLookupByLibrary.simpleMessage(
+          "Готовы ли вы изменить свое обучение?",
+        ),
+        "welcome_text_2": MessageLookupByLibrary.simpleMessage(
+          "Присоединяйтесь к тысячам студентов, которые учатся эффективнее с Salen Academy.",
+        ),
+      };
 }

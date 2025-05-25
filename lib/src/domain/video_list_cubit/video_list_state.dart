@@ -1,33 +1,37 @@
-part of 'sign_up_cubit.dart';
+part of 'video_list_cubit.dart';
 
-class SignUpState extends Equatable {
+class VideoListState extends Equatable {
   final bool isLoading;
   final bool isError;
   final ErrorModel? error;
-  final UserSignUpModel? userModel;
+  final List<VideoModel> videos;
 
-  const SignUpState({
+  const VideoListState({
     required this.isLoading,
     required this.isError,
+    required this.videos,
     this.error,
-    this.userModel,
   });
 
-  factory SignUpState.init() {
-    return SignUpState(isLoading: false, isError: false);
+  factory VideoListState.init() {
+    return VideoListState(
+      isLoading: false,
+      isError: false,
+      videos: [],
+    );
   }
 
-  SignUpState copyWith({
+  VideoListState copyWith({
     bool? isLoading,
     bool? isError,
     ErrorModel? error,
-    UserSignUpModel? userModel,
+    List<VideoModel>? videos,
   }) {
-    return SignUpState(
+    return VideoListState(
       isLoading: isLoading ?? this.isLoading,
       isError: isError ?? this.isError,
+      videos: videos ?? this.videos,
       error: error ?? this.error,
-      userModel: userModel ?? this.userModel,
     );
   }
 
@@ -36,6 +40,6 @@ class SignUpState extends Equatable {
         isLoading.hashCode,
         isError.hashCode,
         error.hashCode,
-        userModel.hashCode,
+        videos.hashCode,
       ];
 }

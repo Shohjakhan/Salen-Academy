@@ -1,33 +1,33 @@
-part of 'sign_up_cubit.dart';
+part of 'sign_in_cubit.dart';
 
-class SignUpState extends Equatable {
+class SignInState extends Equatable {
   final bool isLoading;
   final bool isError;
   final ErrorModel? error;
-  final UserSignUpModel? userModel;
+  final SignInModel? signInModel;
 
-  const SignUpState({
+  const SignInState({
     required this.isLoading,
     required this.isError,
+    this.signInModel,
     this.error,
-    this.userModel,
   });
 
-  factory SignUpState.init() {
-    return SignUpState(isLoading: false, isError: false);
+  factory SignInState.init() {
+    return SignInState(isLoading: false, isError: false);
   }
 
-  SignUpState copyWith({
+  SignInState copyWith({
     bool? isLoading,
     bool? isError,
     ErrorModel? error,
-    UserSignUpModel? userModel,
+    SignInModel? signInModel,
   }) {
-    return SignUpState(
+    return SignInState(
       isLoading: isLoading ?? this.isLoading,
       isError: isError ?? this.isError,
       error: error ?? this.error,
-      userModel: userModel ?? this.userModel,
+      signInModel: signInModel ?? this.signInModel,
     );
   }
 
@@ -36,6 +36,6 @@ class SignUpState extends Equatable {
         isLoading.hashCode,
         isError.hashCode,
         error.hashCode,
-        userModel.hashCode,
+        signInModel.hashCode,
       ];
 }
