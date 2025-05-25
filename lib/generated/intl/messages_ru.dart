@@ -22,22 +22,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "btn_ai_tutorial_generator": MessageLookupByLibrary.simpleMessage(
-            "Подготовка учебников с помощью ИИ"),
-        "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
-            "Создавайте собственные видео"),
-        "btn_sign_up":
-            MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
-        "btn_sing_in": MessageLookupByLibrary.simpleMessage("Войти"),
-        "hint_generate_tutorials":
-            MessageLookupByLibrary.simpleMessage("Создать обучающие материалы"),
-        "language": MessageLookupByLibrary.simpleMessage("ru"),
-        "main_text": MessageLookupByLibrary.simpleMessage(
-            "Привет, чему ты хочешь научиться сегодня?\nПопробуйте создать обучающие материалы или поискать их."),
-        "text_generate_videos": MessageLookupByLibrary.simpleMessage(
-            "Создавайте собственные видео"),
-        "title_language": MessageLookupByLibrary.simpleMessage("Русский"),
-        "welcome_text": MessageLookupByLibrary.simpleMessage(
-            "Лучший и наиболее эффективный способ изучения любого предмета.")
-      };
+    "btn_ai_tutorial_generator": MessageLookupByLibrary.simpleMessage(
+      "Подготовка учебников с помощью ИИ",
+    ),
+    "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
+      "Создавайте собственные видео",
+    ),
+    "btn_sign_up": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "btn_sing_in": MessageLookupByLibrary.simpleMessage("Войти"),
+    "hint_generate_tutorials": MessageLookupByLibrary.simpleMessage(
+      "Создать обучающие материалы",
+    ),
+    "language": MessageLookupByLibrary.simpleMessage("ru"),
+    "main_text": MessageLookupByLibrary.simpleMessage(
+      "Привет, чему ты хочешь научиться сегодня?\nПопробуйте создать обучающие материалы или поискать их.",
+    ),
+    "text_generate_videos": MessageLookupByLibrary.simpleMessage(
+      "Создавайте собственные видео",
+    ),
+    "title_language": MessageLookupByLibrary.simpleMessage("Русский"),
+    "welcome_text": MessageLookupByLibrary.simpleMessage(
+      "Лучший и наиболее эффективный способ изучения любого предмета.",
+    ),
+  };
 }

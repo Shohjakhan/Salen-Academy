@@ -22,21 +22,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "btn_ai_tutorial_generator":
-            MessageLookupByLibrary.simpleMessage("AI Tutorial Generator"),
-        "btn_generate_tutorials":
-            MessageLookupByLibrary.simpleMessage("Generate Tutorials"),
-        "btn_sign_up": MessageLookupByLibrary.simpleMessage("Get Started"),
-        "btn_sing_in": MessageLookupByLibrary.simpleMessage("Log in"),
-        "hint_generate_tutorials":
-            MessageLookupByLibrary.simpleMessage("Generate Tutorials"),
-        "language": MessageLookupByLibrary.simpleMessage("en"),
-        "main_text": MessageLookupByLibrary.simpleMessage(
-            "Hi, what do you wanna learn today?\nTry generating tutorials or search for them."),
-        "text_generate_videos":
-            MessageLookupByLibrary.simpleMessage("Generate your own videos"),
-        "title_language": MessageLookupByLibrary.simpleMessage("English"),
-        "welcome_text": MessageLookupByLibrary.simpleMessage(
-            "The best and most effective way to learn any subject.")
-      };
+    "btn_ai_tutorial_generator": MessageLookupByLibrary.simpleMessage(
+      "AI Tutorial Generator",
+    ),
+    "btn_generate_tutorials": MessageLookupByLibrary.simpleMessage(
+      "Generate Tutorials",
+    ),
+    "btn_sign_up": MessageLookupByLibrary.simpleMessage("Get Started"),
+    "btn_sing_in": MessageLookupByLibrary.simpleMessage("Log in"),
+    "hint_generate_tutorials": MessageLookupByLibrary.simpleMessage(
+      "Generate Tutorials",
+    ),
+    "language": MessageLookupByLibrary.simpleMessage("en"),
+    "main_text": MessageLookupByLibrary.simpleMessage(
+      "Hi, what do you wanna learn today?\nTry generating tutorials or search for them.",
+    ),
+    "text_generate_videos": MessageLookupByLibrary.simpleMessage(
+      "Generate your own videos",
+    ),
+    "title_language": MessageLookupByLibrary.simpleMessage("English"),
+    "welcome_text": MessageLookupByLibrary.simpleMessage(
+      "The best and most effective way to learn any subject.",
+    ),
+  };
 }
