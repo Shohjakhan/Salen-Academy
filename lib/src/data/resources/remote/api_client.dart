@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../../services/api_client/impl/api_service.dart';
 import '../../repositories/local_data_repository.dart';
 import 'api_exceptions/api_exceptions.dart';
@@ -86,6 +88,28 @@ class ApiClient {
         statusCode: 0,
       );
     }
+  }
+
+  Future<Map<String, dynamic>> uploadFile(
+    String urlEndPoint, {
+    File? file,
+    Map<String, String>? headers,
+    Map<String, String>? body,
+  }) async {
+    final requestHeader = headers ?? {};
+    final accessToken = LocalDataRepository.getAccessTokenSync();
+
+    if (accessToken.isNotEmpty) {
+      requestHeader.addAll({'Authorization': 'Token $accessToken'});
+    }
+
+    return await _apiService.uploadFiles(
+      url: '$_baseUrl$urlEndPoint',
+      headers: requestHeader,
+      body: body ?? {},
+      file: file,
+      onProgress: (progress) {},
+    );
   }
 
   Future<Map<String, dynamic>> _getRequest({

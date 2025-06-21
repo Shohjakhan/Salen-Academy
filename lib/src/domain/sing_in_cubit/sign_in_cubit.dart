@@ -12,17 +12,17 @@ class SignInCubit extends Cubit<SignInState> {
   SignInCubit() : super(SignInState.init());
 
   Future<void> onSignIn({
-    required String userName,
+    required String email,
     required String password,
   }) async {
     emit(state.copyWith(isLoading: true, isError: false));
     try {
       var data = await SignInRepository.signIn(
-        userName: userName,
+        email: email,
         password: password,
       );
       if (data is SignInModel) {
-        await LocalDataRepository.setAccessToken(data.token);
+        await LocalDataRepository.setAccessToken(data.access);
         emit(state.copyWith(isLoading: false, signInModel: data));
       }
     } on ErrorModel catch (e) {

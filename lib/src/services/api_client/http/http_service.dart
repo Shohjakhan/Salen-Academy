@@ -79,7 +79,7 @@ class HttpService implements ApiService {
     required String url,
     required Map<String, String> headers,
     required Map<String, String> body,
-    required File file,
+    required File? file,
     required Function(double progress) onProgress,
   }) async {
     var uri = Uri.parse(url);
@@ -96,13 +96,15 @@ class HttpService implements ApiService {
       request.headers.addAll(headers);
       request.fields.addAll(body);
 
-      request.files.add(
-        await http.MultipartFile.fromPath(
-          'file',
-          file.path,
-          filename: file.path.split('/').last,
-        ),
-      );
+      if (file != null) {
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'image',
+            file.path,
+            filename: file.path.split('/').last,
+          ),
+        );
+      }
 
       final streamedResponse = await request.send();
       final respStr = await streamedResponse.stream.bytesToString();

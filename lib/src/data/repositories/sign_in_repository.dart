@@ -9,15 +9,15 @@ import '../resources/remote/api_exceptions/api_exceptions.dart';
 
 abstract class SignInRepository {
   static Future<dynamic> signIn({
-    required String userName,
+    required String email,
     required String password,
   }) async {
     try {
       final data = await sl<ApiClient>().request(
-        '/login/',
+        '/auth/login/',
         method: 'POST',
         body: {
-          'username': userName,
+          'email': email,
           'password': password,
         },
       );
@@ -27,7 +27,7 @@ abstract class SignInRepository {
       throw ErrorModel(
         errorId: 0,
         isFriendly: true,
-        message: e.body['non_field_errors'][0],
+        message: e.body['error'],
       );
     } catch (e) {
       throw ErrorModel(

@@ -256,6 +256,7 @@ class _SignUpPageState extends State<SignUpPage> {
       controller: controller,
       obscureText: obscureText,
       validator: validator,
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         labelText: labelText,
         filled: true,

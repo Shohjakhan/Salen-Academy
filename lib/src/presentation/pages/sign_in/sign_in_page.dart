@@ -22,7 +22,7 @@ class _SignInPageState extends State<SignInPage> {
   void validateAndLogin() {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<SignInCubit>(context).onSignIn(
-        userName: emailController.text,
+        email: emailController.text,
         password: passwordController.text,
       );
     }
@@ -218,6 +218,7 @@ class _SignInPageState extends State<SignInPage> {
       controller: controller,
       obscureText: obscureText,
       validator: validator,
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         labelText: labelText,
         filled: true,

@@ -5,7 +5,7 @@ abstract class ApiService {
     required String url,
     required Map<String, String> headers,
     required Map<String, String> body,
-    required File file,
+    required File? file,
     required Function(double progress) onProgress,
   });
 

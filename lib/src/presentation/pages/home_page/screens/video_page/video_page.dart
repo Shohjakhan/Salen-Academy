@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:salen_academy/generated/l10n.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:image_picker/image_picker.dart'; // For photo access
 
 class VideoPage extends StatefulWidget {
@@ -14,7 +13,6 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> {
-  late WebSocketChannel _channel;
   final TextEditingController _searchController = TextEditingController();
   late String _selectedLanguage;
   late String _selectedQuality;
@@ -61,7 +59,6 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void dispose() {
-    _channel.sink.close();
     _searchController.dispose();
     super.dispose();
   }
