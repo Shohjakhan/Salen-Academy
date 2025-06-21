@@ -4,13 +4,13 @@ class SignUpState extends Equatable {
   final bool isLoading;
   final bool isError;
   final ErrorModel? error;
-  final UserSignUpModel? userModel;
+  final UserProfileModel? userProfile;
 
   const SignUpState({
     required this.isLoading,
     required this.isError,
     this.error,
-    this.userModel,
+    this.userProfile,
   });
 
   factory SignUpState.init() {
@@ -21,13 +21,13 @@ class SignUpState extends Equatable {
     bool? isLoading,
     bool? isError,
     ErrorModel? error,
-    UserSignUpModel? userModel,
+    UserProfileModel? userProfile,
   }) {
     return SignUpState(
       isLoading: isLoading ?? this.isLoading,
       isError: isError ?? this.isError,
       error: error ?? this.error,
-      userModel: userModel ?? this.userModel,
+      userProfile: userProfile ?? this.userProfile,
     );
   }
 
@@ -36,6 +36,6 @@ class SignUpState extends Equatable {
         isLoading.hashCode,
         isError.hashCode,
         error.hashCode,
-        userModel.hashCode,
+        userProfile.hashCode,
       ];
 }

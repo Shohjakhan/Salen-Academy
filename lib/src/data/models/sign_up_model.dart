@@ -1,34 +1,60 @@
 // To parse this JSON data, do
 //
-//     final userSignInModel = userSignInModelFromJson(jsonString);
+//     final signUpModel = signUpModelFromJson(jsonString);
 
 import 'dart:convert';
 
-import 'user_model.dart';
+import 'user_profile_model.dart';
 
-UserSignUpModel userSignUpModelFromJson(String str) =>
-    UserSignUpModel.fromJson(json.decode(str));
+SignUpModel signUpModelFromJson(String str) =>
+    SignUpModel.fromJson(json.decode(str));
 
-String userSignUpModelToJson(UserSignUpModel data) =>
-    json.encode(data.toJson());
+String signUpModelToJson(SignUpModel data) => json.encode(data.toJson());
 
-class UserSignUpModel {
-  String token;
-  UserModel user;
+class SignUpModel {
+  final bool success;
+  final String message;
+  final Tokens tokens;
+  final UserProfileModel userProfile;
 
-  UserSignUpModel({
-    required this.token,
-    required this.user,
+  SignUpModel({
+    required this.success,
+    required this.message,
+    required this.tokens,
+    required this.userProfile,
   });
 
-  factory UserSignUpModel.fromJson(Map<String, dynamic> json) =>
-      UserSignUpModel(
-        token: json["token"],
-        user: UserModel.fromJson(json["user"]),
+  factory SignUpModel.fromJson(Map<String, dynamic> json) => SignUpModel(
+        success: json["success"],
+        message: json["message"],
+        tokens: Tokens.fromJson(json["tokens"]),
+        userProfile: UserProfileModel.fromJson(json["user_profile"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "token": token,
-        "user": user.toJson(),
+        "success": success,
+        "message": message,
+        "tokens": tokens.toJson(),
+        "user_profile": userProfile.toJson(),
+      };
+}
+
+class Tokens {
+  final String access;
+  final String refresh;
+
+  Tokens({
+    required this.access,
+    required this.refresh,
+  });
+
+  factory Tokens.fromJson(Map<String, dynamic> json) => Tokens(
+        access: json["access"],
+        refresh: json["refresh"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "access": access,
+        "refresh": refresh,
       };
 }

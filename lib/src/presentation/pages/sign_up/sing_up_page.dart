@@ -157,7 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SizedBox(height: 24),
                         BlocBuilder<SignUpCubit, SignUpState>(
                           buildWhen: (previous, current) {
-                            if (current.userModel != null) {
+                            if (current.userProfile != null) {
                               context.goNamed(HomePage.routeName);
                             }
                             return true;

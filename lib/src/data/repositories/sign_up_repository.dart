@@ -15,18 +15,19 @@ abstract class SignUpRepository {
   }) async {
     try {
       final data = await sl<ApiClient>().request(
-        '/signup/',
+        '/auth/register/',
         method: 'POST',
         body: {
-          'username': userName,
+          'full_name': userName,
           'email': email,
           'password': password,
+          'password_confirm': password,
         },
       );
 
-      return userSignUpModelFromJson(jsonEncode(data));
+      return signUpModelFromJson(jsonEncode(data));
     } on ApiException catch (e) {
-      throw ErrorModel.fromJson(e.body['username'][0]);
+      throw ErrorModel(errorId: 0, message: e.body['error'], isFriendly: true);
     } catch (e) {
       throw ErrorModel(errorId: 0, isFriendly: false, message: e.toString());
     }
