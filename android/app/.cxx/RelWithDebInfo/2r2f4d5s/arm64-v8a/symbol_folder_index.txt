@@ -1,0 +1,1 @@
+/Users/destbest/Projects/Salen-Academy/build/app/intermediates/cxx/RelWithDebInfo/2r2f4d5s/obj/arm64-v8a

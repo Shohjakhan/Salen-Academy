@@ -1,4 +1,4 @@
-package com.example.salen_academy
+package com.pm.salen_academy
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,0 +1,2 @@
+/Users/destbest/Projects/Salen-Academy/android/app/.cxx/RelWithDebInfo/2r2f4d5s/x86/CMakeFiles/edit_cache.dir
+/Users/destbest/Projects/Salen-Academy/android/app/.cxx/RelWithDebInfo/2r2f4d5s/x86/CMakeFiles/rebuild_cache.dir
