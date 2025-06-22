@@ -29,6 +29,8 @@ class SignUpCubit extends Cubit<SignUpState> {
 
       if (data is SignUpModel) {
         await LocalDataRepository.setAccessToken(data.tokens.access);
+        await LocalDataRepository.setProfile(data.userProfile);
+
         emit(state.copyWith(isLoading: false, userProfile: data.userProfile));
       } else {
         emit(state.copyWith(isLoading: false, isError: true, error: data));

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import '../../../injector_container.dart';
+import '../models/user_profile_model.dart';
 import '../resources/local/local_storage.dart';
 
 abstract class LocalDataRepository {
@@ -20,7 +23,7 @@ abstract class LocalDataRepository {
     sl<LocalStorage>().setSync(_kLanguageCode, value);
   }
 
-  ///Language code
+  ///Access token
   static const _kAccessToken = 'ACCESS_TOKEN';
   static Future<String> getAccessToken() async {
     return await sl<LocalStorage>().get(_kAccessToken) ?? '';
@@ -36,6 +39,25 @@ abstract class LocalDataRepository {
 
   static void setAccessTokenSync(dynamic value) {
     sl<LocalStorage>().setSync(_kAccessToken, value);
+  }
+
+  ///Profile
+  static const _kProfile = 'PROFILE';
+  static Future<String> getProfile() async {
+    return await sl<LocalStorage>().get(_kProfile) ?? '';
+  }
+
+  static Future<void> setProfile(UserProfileModel value) async {
+    await sl<LocalStorage>().set(_kProfile, jsonEncode(value.toJson()));
+  }
+
+  static UserProfileModel getProfileSync() {
+    String value = sl<LocalStorage>().getSync(_kProfile) ?? '';
+    return UserProfileModel.fromJson(jsonDecode(value));
+  }
+
+  static void setProfileSync(dynamic value) {
+    sl<LocalStorage>().setSync(_kProfile, value);
   }
 
   static Future<void> logout() async {

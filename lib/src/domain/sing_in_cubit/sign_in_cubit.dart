@@ -23,6 +23,7 @@ class SignInCubit extends Cubit<SignInState> {
       );
       if (data is SignInModel) {
         await LocalDataRepository.setAccessToken(data.access);
+        await LocalDataRepository.setProfile(data.userProfile);
         emit(state.copyWith(isLoading: false, signInModel: data));
       }
     } on ErrorModel catch (e) {
