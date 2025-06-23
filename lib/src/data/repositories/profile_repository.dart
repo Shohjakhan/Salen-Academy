@@ -1,9 +1,6 @@
-import 'dart:convert';
-
-import 'package:salen_academy/src/data/models/user_profile_model.dart';
-
 import '../../../injector_container.dart';
 import '../models/error_model.dart';
+import '../models/user_profile_model.dart';
 import '../resources/remote/api_client.dart';
 import '../resources/remote/api_exceptions/api_exceptions.dart';
 

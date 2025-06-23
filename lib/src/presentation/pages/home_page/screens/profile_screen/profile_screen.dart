@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
 import 'package:salen_academy/src/presentation/pages/welcome_page/welcome_page.dart';
@@ -18,20 +17,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _image;
-  final _picker = ImagePicker();
   bool _isEditing = false;
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _currentPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
-
-  Future<void> _pickImage() async {
-    final file = await _picker.pickImage(source: ImageSource.gallery);
-    if (file != null) {
-      setState(() => _image = File(file.path));
-    }
-  }
 
   void _toggleEdit() {
     setState(() {
