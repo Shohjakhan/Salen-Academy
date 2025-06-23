@@ -43,8 +43,9 @@ abstract class LocalDataRepository {
 
   ///Profile
   static const _kProfile = 'PROFILE';
-  static Future<String> getProfile() async {
-    return await sl<LocalStorage>().get(_kProfile) ?? '';
+  static Future<UserProfileModel> getProfile() async {
+    String value = await sl<LocalStorage>().get(_kProfile) ?? '';
+    return UserProfileModel.fromJson(jsonDecode(value));
   }
 
   static Future<void> setProfile(UserProfileModel value) async {
@@ -56,11 +57,12 @@ abstract class LocalDataRepository {
     return UserProfileModel.fromJson(jsonDecode(value));
   }
 
-  static void setProfileSync(dynamic value) {
-    sl<LocalStorage>().setSync(_kProfile, value);
+  static void setProfileSync(UserProfileModel value) {
+    sl<LocalStorage>().setSync(_kProfile, jsonEncode(value.toJson()));
   }
 
   static Future<void> logout() async {
     await setAccessToken('');
+    await sl<LocalStorage>().delete(_kProfile);
   }
 }

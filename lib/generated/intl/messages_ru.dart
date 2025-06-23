@@ -59,6 +59,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "field_cpassword": MessageLookupByLibrary.simpleMessage(
       "Подтвердите пароль",
     ),
+    "field_current_password": MessageLookupByLibrary.simpleMessage(
+      "Текущий пароль",
+    ),
     "field_email": MessageLookupByLibrary.simpleMessage("Электронная почта"),
     "field_npassword": MessageLookupByLibrary.simpleMessage("Новый пароль"),
     "field_password": MessageLookupByLibrary.simpleMessage("Пароль"),

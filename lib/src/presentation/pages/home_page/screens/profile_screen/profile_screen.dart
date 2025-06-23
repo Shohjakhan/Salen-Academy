@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:salen_academy/generated/l10n.dart';
 import 'package:salen_academy/src/data/repositories/local_data_repository.dart';
 import 'package:salen_academy/src/presentation/pages/welcome_page/welcome_page.dart';
+
+import '../../../../../domain/profile_cubit/profile_cubit.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -18,9 +21,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _picker = ImagePicker();
   bool _isEditing = false;
 
-  final _nameController = TextEditingController(text: 'John Doe');
-  final _emailController = TextEditingController(text: 'john.doe@example.com');
-  final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _currentPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
 
   Future<void> _pickImage() async {
     final file = await _picker.pickImage(source: ImageSource.gallery);
@@ -39,6 +43,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _isEditing = false;
     });
+    BlocProvider.of<ProfileCubit>(context).setProfile(
+      fullName: _nameController.text,
+      email: _emailController.text,
+      oldPaswd: _currentPasswordController.text,
+      newPaswd: _newPasswordController.text,
+    );
     // Save to backend or local storage if needed
   }
 
@@ -46,10 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-          color: Colors.white,
-          onPressed: () => context.pop(),
-        ),
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
@@ -87,101 +94,130 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            GestureDetector(
-              onTap: _pickImage,
-              child: CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.grey.shade200,
-                backgroundImage: _image != null ? FileImage(_image!) : null,
-                child: _image == null
-                    ? const Icon(Icons.person, size: 60, color: Colors.grey)
-                    : null,
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Editable or non-editable content
-            _isEditing
-                ? Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: TextField(
-                          controller: _nameController,
-                          style: const TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                              labelText: S.current.field_username),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: TextField(
-                          controller: _emailController,
-                          style: const TextStyle(color: Colors.black),
-                          decoration:
-                              InputDecoration(labelText: S.current.field_email),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: TextField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          style: const TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                              labelText: S.current.field_npassword),
-                        ),
-                      ),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      Text(
-                        _nameController.text,
-                        style: const TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        _emailController.text,
-                        style: const TextStyle(
-                            fontSize: 16, color: Colors.black54),
-                      ),
-                    ],
-                  ),
-
-            const Spacer(),
-
-            // Logout Button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60.0),
-              child: ElevatedButton.icon(
-                onPressed: () async {
-                  await LocalDataRepository.logout();
-                  context.go(WelcomePage.routeName);
-                },
-                icon: const Icon(Icons.logout),
-                label: Text(S.current.btn_log_out),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: const Color(0xFF4e57f6),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          return Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 40),
+                GestureDetector(
+                  // onTap: _pickImage,
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.grey.shade200,
+                    backgroundImage: _image != null ? FileImage(_image!) : null,
+                    child: _image == null
+                        ? const Icon(Icons.person, size: 60, color: Colors.grey)
+                        : null,
                   ),
                 ),
-              ),
+                const SizedBox(height: 20),
+
+                // Editable or non-editable content
+                if (state.isLoading)
+                  CircularProgressIndicator.adaptive()
+                else
+                  _isEditing
+                      ? Column(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                              child: TextField(
+                                controller: _nameController
+                                  ..text = state.userProfile!.fullName,
+                                style: const TextStyle(color: Colors.black),
+                                decoration: InputDecoration(
+                                    labelText: S.current.field_username),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                              child: TextField(
+                                controller: _emailController
+                                  ..text = state.userProfile!.email,
+                                style: const TextStyle(color: Colors.black),
+                                decoration: InputDecoration(
+                                    labelText: S.current.field_email),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                              child: TextField(
+                                controller: _currentPasswordController,
+                                obscureText: true,
+                                style: const TextStyle(color: Colors.black),
+                                decoration: InputDecoration(
+                                  labelText: S.current.field_current_password,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                              child: TextField(
+                                controller: _newPasswordController,
+                                obscureText: true,
+                                style: const TextStyle(color: Colors.black),
+                                decoration: InputDecoration(
+                                  labelText: S.current.field_npassword,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Text(
+                              state.userProfile!.fullName,
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              state.userProfile!.email,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                const Spacer(),
+
+                // Logout Button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      await LocalDataRepository.logout();
+                      context.go(WelcomePage.routeName);
+                    },
+                    icon: const Icon(Icons.logout),
+                    label: Text(S.current.btn_log_out),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF4e57f6),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
             ),
-            const SizedBox(height: 24),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

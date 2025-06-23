@@ -1,4 +1,5 @@
 {
+  "@@locale": "ru",
   "alr_acc": "← У вас уже есть аккаунт",
   "btn_create_acc": "Зарегистрироваться →",
   "btn_get_started": "Начать",
@@ -16,6 +17,7 @@
   "error_msg_username": "Пожалуйста, введите ваше имя пользователя",
   "error_password": "Пароли не совпадают!",
   "field_cpassword": "Подтвердите пароль",
+  "field_current_password": "Текущий пароль",
   "field_email": "Электронная почта",
   "field_npassword": "Новый пароль",
   "field_password": "Пароль",

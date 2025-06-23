@@ -35,7 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Create your account to get started",
     ),
     "dont_acc": MessageLookupByLibrary.simpleMessage(
-      "Don\'t have an account + ",
+      "Don`t have an account + ",
     ),
     "error_msg_cpassword": MessageLookupByLibrary.simpleMessage(
       "Please confirm your password",
@@ -59,6 +59,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Passwords do not match!",
     ),
     "field_cpassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+    "field_current_password": MessageLookupByLibrary.simpleMessage(
+      "Current password",
+    ),
     "field_email": MessageLookupByLibrary.simpleMessage("Email"),
     "field_npassword": MessageLookupByLibrary.simpleMessage("New password"),
     "field_password": MessageLookupByLibrary.simpleMessage("Password"),

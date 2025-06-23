@@ -178,7 +178,7 @@ class S {
   /// `Parol kamida 6 ta belgidan iborat bo'lishi kerak`
   String get error_msg_password_2 {
     return Intl.message(
-      'Parol kamida 6 ta belgidan iborat bo\'lishi kerak',
+      'Parol kamida 6 ta belgidan iborat bo`lishi kerak',
       name: 'error_msg_password_2',
       desc: '',
       args: [],
@@ -210,6 +210,16 @@ class S {
     return Intl.message(
       'Parolni tasdiqlang',
       name: 'field_cpassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hozirgi parol`
+  String get field_current_password {
+    return Intl.message(
+      'Hozirgi parol',
+      name: 'field_current_password',
       desc: '',
       args: [],
     );
@@ -273,7 +283,7 @@ class S {
   /// `Salen Academyga qo'shiling`
   String get join_text {
     return Intl.message(
-      'Salen Academyga qo\'shiling',
+      'Salen Academyga qo`shiling',
       name: 'join_text',
       desc: '',
       args: [],

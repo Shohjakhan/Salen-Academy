@@ -48,7 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Iltimos, parolingizni kiriting",
     ),
     "error_msg_password_2": MessageLookupByLibrary.simpleMessage(
-      "Parol kamida 6 ta belgidan iborat bo\'lishi kerak",
+      "Parol kamida 6 ta belgidan iborat bo`lishi kerak",
     ),
     "error_msg_username": MessageLookupByLibrary.simpleMessage(
       "Iltimos, foydalanuvchi nomingizni kiriting",
@@ -58,6 +58,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "field_cpassword": MessageLookupByLibrary.simpleMessage(
       "Parolni tasdiqlang",
+    ),
+    "field_current_password": MessageLookupByLibrary.simpleMessage(
+      "Hozirgi parol",
     ),
     "field_email": MessageLookupByLibrary.simpleMessage("Elektron pochta"),
     "field_npassword": MessageLookupByLibrary.simpleMessage("Yangi parol"),
@@ -72,7 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Parolni unutdingizmi?",
     ),
     "join_text": MessageLookupByLibrary.simpleMessage(
-      "Salen Academyga qo\'shiling",
+      "Salen Academyga qo`shiling",
     ),
     "main_screen_text": MessageLookupByLibrary.simpleMessage(
       "Matematika masalalarimi?",

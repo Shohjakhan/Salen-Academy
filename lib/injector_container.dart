@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:salen_academy/src/domain/video_cubit/video_cubit.dart';
+import 'src/domain/profile_cubit/profile_cubit.dart';
+import 'src/domain/video_cubit/video_cubit.dart';
 import 'src/services/api_client/http/http_service.dart';
 import 'src/data/resources/local/isar_db/isar_db.dart';
 import 'src/data/resources/local/local_storage.dart';
@@ -18,4 +19,5 @@ Future<void> getItInit() async {
   sl.registerSingleton<LocalStorage>(IsarDB());
 
   sl.registerLazySingleton(() => VideoCubit());
+  sl.registerLazySingleton(() => ProfileCubit());
 }

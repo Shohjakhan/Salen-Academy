@@ -18,7 +18,7 @@ class ApiClient {
     final accessToken = LocalDataRepository.getAccessTokenSync();
 
     if (accessToken.isNotEmpty) {
-      requestHeader.addAll({'Authorization': 'Token $accessToken'});
+      requestHeader.addAll({'Authorization': 'Bearer $accessToken'});
     }
 
     requestHeader.addAll({

@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:salen_academy/src/domain/profile_cubit/profile_cubit.dart';
 import 'package:salen_academy/src/domain/video_cubit/video_cubit.dart';
 import 'package:salen_academy/src/presentation/pages/home_page/screens/main_screen/main_screen.dart';
 import 'package:salen_academy/src/presentation/pages/home_page/screens/profile_screen/profile_screen.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     BlocProvider.of<VideoCubit>(context).socketInit();
+    BlocProvider.of<ProfileCubit>(context).getProfile();
   }
 
   @override

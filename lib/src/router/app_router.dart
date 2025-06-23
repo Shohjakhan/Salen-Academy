@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:salen_academy/injector_container.dart';
+import 'package:salen_academy/src/domain/profile_cubit/profile_cubit.dart';
 import 'package:salen_academy/src/domain/sign_up_cubit/sign_up_cubit.dart';
 import 'package:salen_academy/src/domain/sing_in_cubit/sign_in_cubit.dart';
 import 'package:salen_academy/src/domain/video_cubit/video_cubit.dart';
@@ -53,6 +54,7 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider.value(value: sl<VideoCubit>()),
+            BlocProvider.value(value: sl<ProfileCubit>()),
           ],
           child: const HomePage(),
         ),
